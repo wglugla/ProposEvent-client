@@ -18,11 +18,14 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "formik": "^1.5.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-redux": "^6.0.1",
     "react-scripts": "2.1.8",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.1",
