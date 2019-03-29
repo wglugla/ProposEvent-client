@@ -1,5 +1,24 @@
-import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './ducks/reducers';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import * as rootReducers from './ducks/reducers';
+import createSagaMiddleware from 'redux-saga';
+import { all } from 'redux-saga/effects';
 
-export default createStore(rootReducer, composeWithDevTools());
+import { authSaga } from './ducks/sagas';
+
+function* rootSaga() {
+  yield all([authSaga()]);
+}
+
+export default function configureStore() {
+  const middlewares = [];
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : compose;
+  const sagaMiddleware = createSagaMiddleware();
+  middlewares.push(sagaMiddleware);
+  const enhancer = composeEnhancers(applyMiddleware(...middlewares));
+  const reducers = combineReducers(rootReducers);
+  const store = createStore(reducers, enhancer);
+  sagaMiddleware.run(rootSaga);
+  return store;
+}
