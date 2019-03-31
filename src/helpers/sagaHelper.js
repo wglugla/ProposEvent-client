@@ -12,7 +12,7 @@ export const createSagaApiCall = (endpoint, method, success, fail) => {
         headers,
       });
       const json = yield data.json();
-      if (json.success) {
+      if (json.status) {
         yield put(success(json.data));
       } else {
         yield put(fail(json));

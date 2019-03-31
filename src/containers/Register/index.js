@@ -15,6 +15,7 @@ class Register extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     registerRequest: userData => {
+      userData.tags = userData.tags.substring(0, userData.tags.length - 1);
       dispatch(authAction.registerRequest(userData));
     },
   };

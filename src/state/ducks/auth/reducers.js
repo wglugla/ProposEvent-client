@@ -13,6 +13,11 @@ const actionHandlers = {
       registerStatus: { fail: true, message: action.error.error },
     });
   },
+  AUTH_REGISTER_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      registerStatus: { fail: false, message: '' },
+    });
+  },
 };
 
 export default createReducer(initialState, actionHandlers);

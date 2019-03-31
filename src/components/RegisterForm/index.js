@@ -31,12 +31,20 @@ function Checkbox(props) {
             {...props}
             checked={field.value.includes(props.value)}
             onChange={() => {
+              console.log('field.value przed: ', field.value);
               if (field.value.includes(props.value)) {
-                const nextValue = field.value.filter(value => value !== props.value);
+                const target =
+                  field.value.indexOf(`${props.value},`) >= 0
+                    ? `${props.value},`
+                    : `,${props.value}`;
+                console.log('usuwam: ', target);
+                const nextValue = field.value.replace(target, '');
                 form.setFieldValue(props.name, nextValue);
+                console.log(nextValue);
               } else {
                 const nextValue = field.value.concat(props.value + ',');
                 form.setFieldValue(props.name, nextValue);
+                console.log(nextValue);
               }
             }}
           />
