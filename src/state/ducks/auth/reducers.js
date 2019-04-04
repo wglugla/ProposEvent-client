@@ -2,20 +2,38 @@ import { createReducer } from '../../../helpers/reducerHelper';
 
 const initialState = {
   registerStatus: {
+    done: false,
     fail: false,
     message: '',
+  },
+  loginStatus: {
+    fail: false,
+    logged: false,
+    token: null,
   },
 };
 
 const actionHandlers = {
   AUTH_REGISTER_FAIL: (state, action) => {
     return Object.assign({}, state, {
-      registerStatus: { fail: true, message: action.error.error },
+      registerStatus: { done: true, fail: true, message: action.error.error },
     });
   },
   AUTH_REGISTER_RECEIVE: (state, action) => {
     return Object.assign({}, state, {
-      registerStatus: { fail: false, message: '' },
+      registerStatus: { done: true, fail: false, message: '' },
+    });
+  },
+  AUTH_LOGIN_FAIL: (state, action) => {
+    return Object.assign({}, state, {
+      loginStatus: { fail: true },
+    });
+  },
+  AUTH_LOGIN_RECEIVE: (state, action) => {
+    const data = action.data;
+    localStorage.setItem('proposEventToken', data.token);
+    return Object.assign({}, state, {
+      loginStatus: { fail: false, logged: true, token: data.token },
     });
   },
 };

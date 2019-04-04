@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import '../../normalize.css';
-import Register from '../Register';
+
+import Routes from '../../routes';
 
 class App extends Component {
   render() {
-    return <Register />;
+    return <Routes />;
   }
 }
 

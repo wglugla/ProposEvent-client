@@ -8,7 +8,13 @@ import { authAction } from '../../state/ducks/actions';
 class Register extends Component {
   componentDidMount() {}
   render() {
-    return <RegisterForm register={this.props.registerRequest} />;
+    return (
+      <RegisterForm
+        register={this.props.registerRequest}
+        registerDone={this.props.registerDone}
+        registerFail={this.props.registerFail}
+      />
+    );
   }
 }
 
@@ -21,9 +27,10 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const mapStateToProps = state => {
-  return {};
-};
+const mapStateToProps = state => ({
+  registerDone: state.auth.registerStatus.done,
+  registerFail: state.auth.registerStatus.fail,
+});
 
 export default connect(
   mapStateToProps,

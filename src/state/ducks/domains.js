@@ -5,7 +5,7 @@ export const userInfoDomain = id => `${domain}/users/${id}`;
 export const userEventsDomain = id => `${domain}/users/${id}/events`;
 export const userSignedEventsDomain = id => `${domain}/users/${id}/signedEvents`;
 export const userSignupDomain = `http://${domain}/signup`;
-export const userSigninDomain = `${domain}/signin`;
+export const userSigninDomain = `http://${domain}/signin`;
 
 export const eventsDomain = `${domain}/events`;
 export const eventInfoDomain = id => `${domain}/event/${id}`;

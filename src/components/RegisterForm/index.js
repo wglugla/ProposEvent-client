@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -31,20 +33,16 @@ function Checkbox(props) {
             {...props}
             checked={field.value.includes(props.value)}
             onChange={() => {
-              console.log('field.value przed: ', field.value);
               if (field.value.includes(props.value)) {
                 const target =
                   field.value.indexOf(`${props.value},`) >= 0
                     ? `${props.value},`
                     : `,${props.value}`;
-                console.log('usuwam: ', target);
                 const nextValue = field.value.replace(target, '');
                 form.setFieldValue(props.name, nextValue);
-                console.log(nextValue);
               } else {
                 const nextValue = field.value.concat(props.value + ',');
                 form.setFieldValue(props.name, nextValue);
-                console.log(nextValue);
               }
             }}
           />
@@ -55,70 +53,67 @@ function Checkbox(props) {
   );
 }
 
-export default class RegisterForm extends Component {
-  render() {
-    return (
-      <div>
-        <h2> Utwórz konto </h2>
-        <p>
-          Dobierz zainteresowania do konta, aby pozwolić aplikacji na jak najlepszy wybór
-          proponowanych wydarzeń!
-        </p>
-        <Formik
-          initialValues={{
-            username: '',
-            name: '',
-            surname: '',
-            password: '',
-            tags: '',
-          }}
-          onSubmit={(values, actions) => {
-            console.log(values);
-            this.props.register(values);
-          }}
-          onChange={el => {
-            console.log('onchange');
-            console.log(el);
-          }}
-          validationSchema={SignupSchema}
-          render={({ handleSubmit, onChange, errors, status, touched, isSubmitting }) => (
-            <form
-              onSubmit={e => {
-                e.preventDefault();
-                handleSubmit();
-              }}
-            >
-              <label>
-                Nazwa użytkownika
-                <Field type="text" name="username" autoComplete="username" />
-                {errors.username && touched.username && <div> {errors.username} </div>}
-              </label>
-              <label>
-                Imię
-                <Field type="text" name="name" autoComplete="name" />
-                {errors.name && touched.name && <div> {errors.name} </div>}
-              </label>
-              <label>
-                Nazwisko
-                <Field type="text" name="surname" autoComplete="surname" />
-                {errors.surname && touched.surname && <div> {errors.surname} </div>}
-              </label>
-              <label>
-                Hasło
-                <Field type="password" name="password" autoComplete="new-password" />
-                {errors.password && touched.password && <div> {errors.password} </div>}
-              </label>
-              <Checkbox name="tags" value="muzyka" />
-              <Checkbox name="tags" value="sport" />
-              <Checkbox name="tags" value="taniec" />
-              {status && status.msg && <div> {status.msg}</div>}
-              <button type="submit" disabled={isSubmitting}>
-                Zarejestruj się
-              </button>
-            </form>
-          )}
-        />
-      </div>
-    );
-  }
-}
+export const RegisterForm = props => {
+  return (
+    <div>
+      <h2> Utwórz konto </h2>
+      <p>
+        Dobierz zainteresowania do konta, aby pozwolić aplikacji na jak najlepszy wybór
+        proponowanych wydarzeń!
+      </p>
+      <p>
+        Masz już konto? <Link to="/login"> Zaloguj się </Link>
+      </p>
+      <Formik
+        initialValues={{
+          username: '',
+          name: '',
+          surname: '',
+          password: '',
+          tags: '',
+        }}
+        onSubmit={(values, actions) => {
+          props.register(values);
+        }}
+        onChange={el => {}}
+        validationSchema={SignupSchema}
+        render={({ handleSubmit, onChange, errors, status, touched, isSubmitting }) => (
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            <label htmlFor="username">Nazwa użytkownika</label>
+            <Field type="text" name="username" autoComplete="username" />
+            {errors.username && touched.username && <div> {errors.username} </div>}
+            <label htmlFor="name">Imię</label>
+            <Field type="text" name="name" autoComplete="name" />
+            {errors.name && touched.name && <div> {errors.name} </div>}
+            <label htmlFor="surname">Nazwisko</label>
+            <Field type="text" name="surname" autoComplete="surname" />
+            {errors.surname && touched.surname && <div> {errors.surname} </div>}
+            <label htmlFor="password">Hasło</label>
+            <Field type="password" name="password" autoComplete="new-password" />
+            {errors.password && touched.password && <div> {errors.password} </div>}
+            <Checkbox name="tags" value="muzyka" />
+            <Checkbox name="tags" value="sport" />
+            <Checkbox name="tags" value="taniec" />
+            {status && status.msg && <div> {status.msg}</div>}
+            <button type="submit">Zarejestruj się</button>
+          </form>
+        )}
+      />
+      {props.registerDone && !props.registerFail ? (
+        // <p>
+        //   Pomyślnie zarejestrowano! <Link to="/login"> Zaloguj się </Link>
+        // </p>
+        <Redirect to="/login" />
+      ) : (
+        <p> nic </p>
+      )}
+    </div>
+  );
+};
+
+export default RegisterForm;
