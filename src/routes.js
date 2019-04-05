@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Register from './containers/Register';
@@ -10,8 +10,10 @@ import PrivateRoute from './containers/PrivateRoute';
 
 export default props => (
   <Router>
-    <Route exact path="/" component={Register} />
-    <Route path="/login" component={Login} />
-    <PrivateRoute path="/dashboard" component={Dashboard} />
+    <Switch>
+      <Route exact path="/" component={Register} />
+      <Route path="/login" component={Login} />
+      <PrivateRoute path="/dashboard" PrivateComponent={Dashboard} />
+    </Switch>
   </Router>
 );

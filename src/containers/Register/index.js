@@ -4,19 +4,17 @@ import { Redirect } from 'react-router';
 
 import RegisterForm from '../../components/RegisterForm';
 
-import { registerRequest } from '../../state/ducks/auth/actions';
-
-const checkLocalToken = () => {
-  if (localStorage.proposEventToken) {
-    return true;
-  }
-  return false;
-};
+import { registerRequest, loadUser } from '../../state/ducks/auth/actions';
+import { checkLocalToken } from '../../helpers/checkLocalToken';
 
 class Register extends Component {
-  componentDidMount() {}
+  componentWillMount() {
+    if (checkLocalToken()) {
+      this.props.loadUser(localStorage.proposEventToken);
+    }
+  }
   render() {
-    if (checkLocalToken) {
+    if (!this.props.logged) {
       return (
         <RegisterForm
           register={this.props.registerRequest}
@@ -36,12 +34,16 @@ const mapDispatchToProps = dispatch => {
       userData.tags = userData.tags.substring(0, userData.tags.length - 1);
       dispatch(registerRequest(userData));
     },
+    loadUser: token => {
+      dispatch(loadUser(token));
+    },
   };
 };
 
 const mapStateToProps = state => ({
   registerDone: state.auth.registerStatus.done,
   registerFail: state.auth.registerStatus.fail,
+  logged: state.auth.loginStatus.logged,
 });
 
 export default connect(

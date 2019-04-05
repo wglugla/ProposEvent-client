@@ -2,7 +2,6 @@ import { call, put } from 'redux-saga/effects';
 
 export const createSagaApiCall = (endpoint, method, success, fail) => {
   return function*(action) {
-    console.log('createSagaApiCall');
     try {
       const { headers } = action;
       let body = {};
@@ -20,7 +19,7 @@ export const createSagaApiCall = (endpoint, method, success, fail) => {
         yield put(fail(json));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       yield put(fail({ message: 'Error! :(' }));
     }
   };

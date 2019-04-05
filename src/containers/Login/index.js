@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import LoginForm from '../../components/LoginForm';
 
-import { loginRequest } from '../../state/ducks/auth/actions';
+import { loginRequest, loadUser } from '../../state/ducks/auth/actions';
+import { checkLocalToken } from '../../helpers/checkLocalToken';
 
 class Login extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    if (checkLocalToken()) {
+      this.props.loadUser(localStorage.proposEventToken);
+    }
+  }
   render() {
-    return <LoginForm login={this.props.loginRequest} logged={this.props.logged} />;
+    if (!this.props.logged) {
+      return <LoginForm login={this.props.loginRequest} />;
+    } else {
+      return <Redirect to="/dashboard" />;
+    }
   }
 }
 
@@ -15,6 +25,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loginRequest: userData => {
       dispatch(loginRequest(userData));
+    },
+    loadUser: token => {
+      dispatch(loadUser(token));
     },
   };
 };

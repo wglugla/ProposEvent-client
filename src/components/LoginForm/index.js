@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { Redirect } from 'react-router';
 
 const SigninSchema = Yup.object().shape({
   username: Yup.string()
@@ -47,7 +46,6 @@ export const LoginForm = props => {
           </form>
         )}
       />
-      {props.logged ? <Redirect to="/dashboard" /> : null}
     </React.Fragment>
   );
 };

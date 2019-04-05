@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import User from '../../components/User';
 
@@ -13,8 +14,10 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
-        {console.log('XD', this.props)}
         <User userinfo={this.props.user} />
+        <Link to="/"> Znajdź nowe wydarzenia </Link>
+        <Link to="/"> Edytuj profil </Link>
+        <Link to="/"> Wyloguj się </Link>
       </React.Fragment>
     );
   }
@@ -25,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  user: state.user.user,
+  user: state.user.data,
 });
 
 export default connect(

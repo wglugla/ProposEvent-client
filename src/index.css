@@ -15,3 +15,7 @@ label,
 button {
   display: block;
 }
+
+a {
+  display: block;
+}

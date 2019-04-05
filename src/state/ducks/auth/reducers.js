@@ -37,6 +37,11 @@ const actionHandlers = {
       loginStatus: { fail: false, logged: true, token: data.token },
     });
   },
+  LOAD_USER_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      loginStatus: { fail: false, logged: true, token: action.data.token },
+    });
+  },
 };
 
 const auth = createReducer(initialState, actionHandlers);

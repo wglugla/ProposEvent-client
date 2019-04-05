@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
 import { connect } from 'react-redux';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 
 class PrivateRoute extends Component {
   render() {
-    const { logged, Component, ...rest } = this.props;
+    const { logged, PrivateComponent, ...rest } = this.props;
     return (
       <Route
         {...rest}
         render={props =>
           logged ? (
-            <Component {...props} />
+            <PrivateComponent {...props} />
           ) : (
             <Redirect
               to={{
