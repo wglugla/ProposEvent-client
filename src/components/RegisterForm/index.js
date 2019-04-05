@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
@@ -104,14 +104,7 @@ export const RegisterForm = props => {
           </form>
         )}
       />
-      {props.registerDone && !props.registerFail ? (
-        // <p>
-        //   Pomyślnie zarejestrowano! <Link to="/login"> Zaloguj się </Link>
-        // </p>
-        <Redirect to="/login" />
-      ) : (
-        <p> nic </p>
-      )}
+      {props.registerDone && !props.registerFail ? <Redirect to="/login" /> : null}
     </div>
   );
 };

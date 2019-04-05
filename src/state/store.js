@@ -3,10 +3,10 @@ import * as rootReducers from './ducks/reducers';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
-import { authSaga } from './ducks/sagas';
+import { authSaga, userSaga } from './ducks/sagas';
 
 function* rootSaga() {
-  yield all([authSaga()]);
+  yield all([authSaga(), userSaga()]);
 }
 
 export default function configureStore() {

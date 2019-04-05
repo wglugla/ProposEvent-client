@@ -1,7 +1,7 @@
 const domain = `localhost:5000`;
 
 export const usersDomain = `${domain}/users`;
-export const userInfoDomain = id => `${domain}/users/${id}`;
+export const userInfoDomain = id => `http://${domain}/users/${id}`;
 export const userEventsDomain = id => `${domain}/users/${id}/events`;
 export const userSignedEventsDomain = id => `${domain}/users/${id}/signedEvents`;
 export const userSignupDomain = `http://${domain}/signup`;

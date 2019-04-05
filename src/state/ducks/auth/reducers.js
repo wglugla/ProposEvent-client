@@ -32,10 +32,13 @@ const actionHandlers = {
   AUTH_LOGIN_RECEIVE: (state, action) => {
     const data = action.data;
     localStorage.setItem('proposEventToken', data.token);
+    localStorage.setItem('proposEventUserId', data.userId);
     return Object.assign({}, state, {
       loginStatus: { fail: false, logged: true, token: data.token },
     });
   },
 };
 
-export default createReducer(initialState, actionHandlers);
+const auth = createReducer(initialState, actionHandlers);
+
+export default auth;

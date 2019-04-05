@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoginForm from '../../components/LoginForm';
 
-import { authAction } from '../../state/ducks/actions';
+import { loginRequest } from '../../state/ducks/auth/actions';
 
 class Login extends Component {
   componentDidMount() {}
@@ -14,7 +14,7 @@ class Login extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     loginRequest: userData => {
-      dispatch(authAction.loginRequest(userData));
+      dispatch(loginRequest(userData));
     },
   };
 };
