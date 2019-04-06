@@ -11,6 +11,6 @@ const userSagaCall = createSagaApiCall(
   userFailed
 );
 
-export default function* authSaga() {
+export default function* eventSaga() {
   yield takeLatest('FETCH_USER_REQUEST', userSagaCall);
 }

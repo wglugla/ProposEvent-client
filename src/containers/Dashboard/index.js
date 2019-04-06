@@ -14,10 +14,19 @@ class Dashboard extends Component {
   render() {
     return (
       <React.Fragment>
-        <User userinfo={this.props.user} />
-        <Link to="/"> Znajdź nowe wydarzenia </Link>
-        <Link to="/"> Edytuj profil </Link>
-        <Link to="/"> Wyloguj się </Link>
+        <div>
+          <User userinfo={this.props.user} />
+          <Link to="/events/create"> Stwórz nowe wydarzenie </Link>
+          <Link to="/"> Znajdź nowe wydarzenia </Link>
+          <Link to="/"> Edytuj profil </Link>
+          <Link to="/"> Wyloguj się </Link>
+        </div>
+        <div>
+          <h2>Stworzone przez Ciebie</h2>
+        </div>
+        <div>
+          <h2>Weźmiesz udział</h2>
+        </div>
       </React.Fragment>
     );
   }
