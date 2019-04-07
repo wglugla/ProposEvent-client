@@ -87,7 +87,14 @@ export const EventCreatorForm = props => {
           </form>
         )}
       />
-      {props.created && !props.failed ? <Redirect to="/dashboard" /> : null}
+      {props.created && !props.failed ? (
+        <Redirect
+          to={{
+            pathname: '/dashboard',
+            state: { redirectText: 'Wydarzenie utworzone pomyślnie' },
+          }}
+        />
+      ) : null}
     </div>
   );
 };

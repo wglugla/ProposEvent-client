@@ -16,6 +16,26 @@ const actionHandlers = {
       error: true,
     });
   },
+  FETCH_USER_EVENTS_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      userEvents: action.payload.data,
+    });
+  },
+  FETCH_USER_EVENTS_FAILED: (state, action) => {
+    return Object.assign({}, state, {
+      userEventsFail: true,
+    });
+  },
+  FETCH_USER_SIGNED_EVENTS_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      userSignedEvents: action.payload.data,
+    });
+  },
+  FETCH_USER_SIGNED_EVENTS_FAILED: (state, action) => {
+    return Object.assign({}, state, {
+      userSignedEventsFail: true,
+    });
+  },
 };
 
 export default createReducer(initialState, actionHandlers);

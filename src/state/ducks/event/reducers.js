@@ -21,6 +21,14 @@ const actionHandlers = {
       },
     });
   },
+  CLEAR_EVENT_INFO: (state, action) => {
+    return Object.assign({}, state, {
+      eventCreateStatus: {
+        done: false,
+        fail: false,
+      },
+    });
+  },
 };
 
 export default createReducer(initialState, actionHandlers);
