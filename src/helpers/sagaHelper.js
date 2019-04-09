@@ -1,13 +1,16 @@
 import { call, put } from 'redux-saga/effects';
 
-export const createSagaApiCall = (endpoint, method, success, fail) => {
+/** endpoint: function returns domain, method: GET/POST/PUT/DELETE, success: action on success,
+ * fail: action on fail, endpointArg: function returns argument to domain */
+
+export const createSagaApiCall = (endpoint, method, success, fail, endpointArg) => {
   return function*(action) {
     try {
       const { headers } = action;
       let body = {};
       if (action.payload) body = JSON.stringify(action.payload);
       else body = null;
-      const data = yield call(fetch, endpoint, {
+      const data = yield call(fetch, endpoint(endpointArg()), {
         method: method,
         body,
         headers,

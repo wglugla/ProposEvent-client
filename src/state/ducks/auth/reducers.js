@@ -30,16 +30,19 @@ const actionHandlers = {
     });
   },
   AUTH_LOGIN_RECEIVE: (state, action) => {
-    const data = action.data;
-    localStorage.setItem('proposEventToken', data.token);
-    localStorage.setItem('proposEventUserId', data.userId);
+    console.log('authloginreceive: ', action);
     return Object.assign({}, state, {
-      loginStatus: { fail: false, logged: true, token: data.token },
+      loginStatus: { fail: false, logged: true, token: action.data.token },
     });
   },
   LOAD_USER_RECEIVE: (state, action) => {
     return Object.assign({}, state, {
       loginStatus: { fail: false, logged: true, token: action.data.token },
+    });
+  },
+  AUTH_LOGOUT_RECEIVE: (state, action) => {
+    return Object.assign({}.state, {
+      loginStatus: { fail: false, logged: false, token: null },
     });
   },
 };

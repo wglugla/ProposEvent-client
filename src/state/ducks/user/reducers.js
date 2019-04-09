@@ -12,6 +12,7 @@ const actionHandlers = {
     });
   },
   FETCH_USER_FAIL: (state, action) => {
+    console.log(action);
     return Object.assign({}, state, {
       error: true,
     });

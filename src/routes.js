@@ -6,6 +6,7 @@ import Register from './containers/Register';
 import Login from './containers/Login';
 import Dashboard from './containers/Dashboard';
 import EventCreator from './containers/EventCreator';
+import Event from './containers/Event';
 
 import PrivateRoute from './containers/PrivateRoute';
 
@@ -16,6 +17,7 @@ export default props => (
       <Route path="/login" component={Login} />
       <PrivateRoute path="/dashboard" PrivateComponent={Dashboard} />
       <PrivateRoute path="/events/create" PrivateComponent={EventCreator} />
+      <PrivateRoute path="/events/:id" PrivateComponent={Event} />
     </Switch>
   </Router>
 );

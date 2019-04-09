@@ -16,7 +16,13 @@ class Login extends Component {
     if (!this.props.logged) {
       return <LoginForm login={this.props.loginRequest} />;
     } else {
-      return <Redirect to="/dashboard" />;
+      return (
+        <Redirect
+          to={{
+            pathname: '/dashboard',
+          }}
+        />
+      );
     }
   }
 }

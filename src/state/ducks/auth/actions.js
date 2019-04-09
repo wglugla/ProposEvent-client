@@ -54,6 +54,14 @@ export const loadUser = token => ({
   },
 });
 
+export const logoutRequest = () => ({
+  type: 'AUTH_LOGOUT_REQUEST',
+});
+
+export const logoutReceive = () => ({
+  type: 'AUTH_LOGOUT_RECEIVE',
+});
+
 export default {
   registerRequest,
   registerReceive,
@@ -62,4 +70,5 @@ export default {
   loginReceive,
   loginFailed,
   loadUser,
+  logoutRequest,
 };

@@ -29,6 +29,17 @@ const actionHandlers = {
       },
     });
   },
+  FETCH_EVENT_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      currentEvent: action.payload.data,
+    });
+  },
+  FETCH_EVENT_FAIL: (state, action) => {
+    return Object.assign({}, state, {
+      currentEventFail: true,
+      failText: action,
+    });
+  },
 };
 
 export default createReducer(initialState, actionHandlers);

@@ -1,6 +1,7 @@
-import { takeLatest /*, put, call */ } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import { createSagaApiCall } from '../../../helpers/sagaHelper';
 import { userInfoDomain, userEventsDomain, userSignedEventsDomain } from '../domains';
+import { getUserId } from '../../../helpers/localStorageHelper';
 
 import {
   userReceive,
@@ -11,24 +12,21 @@ import {
   userSignedEventsFailed,
 } from './actions';
 
-const userSagaCall = createSagaApiCall(
-  userInfoDomain(localStorage.proposEventUserId),
-  'GET',
-  userReceive,
-  userFailed
-);
+const userSagaCall = createSagaApiCall(userInfoDomain, 'GET', userReceive, userFailed, getUserId);
 
 const userEventsSagaCall = createSagaApiCall(
-  userEventsDomain(localStorage.proposEventUserId),
+  userEventsDomain,
   'GET',
   userEventsReceive,
-  userEventsFailed
+  userEventsFailed,
+  getUserId
 );
 const userSignedEventsSagaCall = createSagaApiCall(
-  userSignedEventsDomain(localStorage.proposEventUserId),
+  userSignedEventsDomain,
   'GET',
   userSignedEventsReceive,
-  userSignedEventsFailed
+  userSignedEventsFailed,
+  getUserId
 );
 
 export default function* eventSaga() {
