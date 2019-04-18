@@ -46,6 +46,7 @@ export const LoginForm = props => {
           </form>
         )}
       />
+      {props.failed ? <p> Błąd logowania </p> : null}
     </React.Fragment>
   );
 };

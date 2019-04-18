@@ -28,7 +28,6 @@ class Dashboard extends Component {
           <User userinfo={this.props.user} />
           <Link to="/events/create"> Stwórz nowe wydarzenie </Link>
           <Link to="/"> Znajdź nowe wydarzenia </Link>
-          <Link to="/"> Edytuj profil </Link>
           <button onClick={this.props.logout}> Wyloguj się </button>
         </div>
         <div>

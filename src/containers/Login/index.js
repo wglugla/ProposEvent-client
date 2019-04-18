@@ -14,7 +14,7 @@ class Login extends Component {
   }
   render() {
     if (!this.props.logged) {
-      return <LoginForm login={this.props.loginRequest} />;
+      return <LoginForm login={this.props.loginRequest} failed={this.props.failed} />;
     } else {
       return (
         <Redirect
@@ -41,6 +41,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     logged: state.auth.loginStatus.logged,
+    failed: state.auth.loginStatus.fail,
   };
 };
 
