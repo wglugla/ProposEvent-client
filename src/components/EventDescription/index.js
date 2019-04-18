@@ -1,10 +1,10 @@
 import React from 'react';
 
 export const EventDescription = props => {
-  const { place, date, description, id } = props.event;
+  const { title, place, date, description } = props.event;
   return (
     <React.Fragment>
-      <p> test: {id}</p>
+      <p> Title: {title}</p>
       <p> Data wydarzenia: {date} </p>
       <p> Miejsce wydarzenia : {place} </p>
       <p> {description} </p>

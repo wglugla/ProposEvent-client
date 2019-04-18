@@ -6,6 +6,10 @@ import { CheckboxList } from '../CheckboxList';
 
 const EventSchema = Yup.object().shape({
   owner_id: Yup.number().required('Wymagane!'),
+  title: Yup.string()
+    .min(5, 'Zbyt krotkie!')
+    .max(45, 'Zbyt długie!')
+    .required('Wymagane!'),
   place: Yup.string()
     .min(5, 'Zbyt krótkie!')
     .max(45, 'Zbyt długie!')
@@ -24,6 +28,7 @@ export const EventCreatorForm = props => {
       <Formik
         initialValues={{
           owner_id: localStorage.proposEventUserId,
+          title: '',
           place: '',
           date: '',
           description: '',
@@ -41,14 +46,17 @@ export const EventCreatorForm = props => {
               handleSubmit();
             }}
           >
-            <label htmlFor="username">Miejsce wydarzenia</label>
-            <Field type="text" name="place" autoComplete="place" />
+            <label htmlFor="title"> Tytuł wydarzenia </label>
+            <Field id="title" type="text" name="title" autoComplete="title" />
+            {errors.title && touched.title && <div> {errors.title} </div>}
+            <label htmlFor="place">Miejsce wydarzenia</label>
+            <Field id="place" type="text" name="place" autoComplete="place" />
             {errors.place && touched.place && <div> {errors.place} </div>}
-            <label htmlFor="name"> Data </label>
-            <Field type="date" name="date" autoComplete="date" />
+            <label htmlFor="date"> Data </label>
+            <Field id="date" type="date" name="date" autoComplete="date" />
             {errors.date && touched.date && <div> {errors.date} </div>}
-            <label htmlFor="surname">Opis wydarzenia</label>
-            <Field type="text" name="description" autoComplete="description" />
+            <label htmlFor="description">Opis wydarzenia</label>
+            <Field id="description" type="text" name="description" autoComplete="description" />
             {errors.description && touched.description && <div> {errors.description} </div>}
             <CheckboxList />
             {status && status.msg && <div> {status.msg}</div>}
