@@ -10,7 +10,8 @@ export const createSagaApiCall = (endpoint, method, success, fail, endpointArg) 
       let body = {};
       if (action.payload) body = JSON.stringify(action.payload);
       else body = null;
-      const data = yield call(fetch, endpoint(endpointArg()), {
+      const arg = endpointArg ? endpointArg() : null;
+      const data = yield call(fetch, endpoint(arg), {
         method: method,
         body,
         headers,
@@ -19,6 +20,7 @@ export const createSagaApiCall = (endpoint, method, success, fail, endpointArg) 
       if (json.status) {
         yield put(success(json));
       } else {
+        console.warn(json);
         yield put(fail(json));
       }
     } catch (error) {

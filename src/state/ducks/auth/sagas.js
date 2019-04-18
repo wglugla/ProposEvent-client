@@ -23,7 +23,7 @@ export default function* authSaga() {
     try {
       const { headers } = action;
       let body = JSON.stringify(action.payload);
-      const data = yield call(fetch, userSigninDomain, {
+      const data = yield call(fetch, userSigninDomain(), {
         method: 'POST',
         body,
         headers,
