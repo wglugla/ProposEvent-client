@@ -3,6 +3,7 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { CheckboxList } from '../CheckboxList';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -22,36 +23,6 @@ const SignupSchema = Yup.object().shape({
     .max(20, 'Zbyt długie!')
     .required('Wymagane!'),
 });
-
-function Checkbox(props) {
-  return (
-    <Field name={props.name}>
-      {({ field, form }) => (
-        <label>
-          <input
-            type="checkbox"
-            {...props}
-            checked={field.value.includes(props.value)}
-            onChange={() => {
-              if (field.value.includes(props.value)) {
-                const target =
-                  field.value.indexOf(`${props.value},`) >= 0
-                    ? `${props.value},`
-                    : `,${props.value}`;
-                const nextValue = field.value.replace(target, '');
-                form.setFieldValue(props.name, nextValue);
-              } else {
-                const nextValue = field.value.concat(props.value + ',');
-                form.setFieldValue(props.name, nextValue);
-              }
-            }}
-          />
-          {props.value}
-        </label>
-      )}
-    </Field>
-  );
-}
 
 export const RegisterForm = props => {
   return (
@@ -96,9 +67,7 @@ export const RegisterForm = props => {
             <label htmlFor="password">Hasło</label>
             <Field type="password" name="password" autoComplete="new-password" />
             {errors.password && touched.password && <div> {errors.password} </div>}
-            <Checkbox name="tags" value="muzyka" />
-            <Checkbox name="tags" value="sport" />
-            <Checkbox name="tags" value="taniec" />
+            <CheckboxList />
             {status && status.msg && <div> {status.msg}</div>}
             <button type="submit">Zarejestruj się</button>
           </form>

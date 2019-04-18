@@ -5,10 +5,11 @@ import { Redirect } from 'react-router';
 import RegisterForm from '../../components/RegisterForm';
 
 import { registerRequest, loadUser } from '../../state/ducks/auth/actions';
+import { tagsRequest } from '../../state/ducks/tags/actions';
 import { checkLocalToken } from '../../helpers/checkLocalToken';
 
 class Register extends Component {
-  componentWillMount() {
+  componentDidMount() {
     if (checkLocalToken()) {
       this.props.loadUser(localStorage.proposEventToken);
     }
@@ -37,6 +38,7 @@ const mapDispatchToProps = dispatch => {
     loadUser: token => {
       dispatch(loadUser(token));
     },
+    getTags: () => dispatch(tagsRequest()),
   };
 };
 

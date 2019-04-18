@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Redirect } from 'react-router';
+import { CheckboxList } from '../CheckboxList';
 
 const EventSchema = Yup.object().shape({
   owner_id: Yup.number().required('Wymagane!'),
@@ -15,36 +16,6 @@ const EventSchema = Yup.object().shape({
     .max(255, 'Zbyt długie!')
     .required('Wymagane!'),
 });
-
-function Checkbox(props) {
-  return (
-    <Field name={props.name}>
-      {({ field, form }) => (
-        <label>
-          <input
-            type="checkbox"
-            {...props}
-            checked={field.value.includes(props.value)}
-            onChange={() => {
-              if (field.value.includes(props.value)) {
-                const target =
-                  field.value.indexOf(`${props.value},`) >= 0
-                    ? `${props.value},`
-                    : `,${props.value}`;
-                const nextValue = field.value.replace(target, '');
-                form.setFieldValue(props.name, nextValue);
-              } else {
-                const nextValue = field.value.concat(props.value + ',');
-                form.setFieldValue(props.name, nextValue);
-              }
-            }}
-          />
-          {props.value}
-        </label>
-      )}
-    </Field>
-  );
-}
 
 export const EventCreatorForm = props => {
   return (
@@ -79,9 +50,7 @@ export const EventCreatorForm = props => {
             <label htmlFor="surname">Opis wydarzenia</label>
             <Field type="text" name="description" autoComplete="description" />
             {errors.description && touched.description && <div> {errors.description} </div>}
-            <Checkbox name="tags" value="muzyka" />
-            <Checkbox name="tags" value="sport" />
-            <Checkbox name="tags" value="taniec" />
+            <CheckboxList />
             {status && status.msg && <div> {status.msg}</div>}
             <button type="submit"> Utwórz wydarzenie </button>
           </form>
