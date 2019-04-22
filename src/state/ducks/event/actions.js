@@ -34,11 +34,14 @@ export const clearEventInfo = () => ({
   type: CLEAR_EVENT_INFO,
 });
 
-export const fetchEventRequest = token => ({
+export const fetchEventRequest = (token, id) => ({
   type: FETCH_EVENT_REQUEST,
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
     Authorization: `Bearer ${token}`,
+  },
+  payload: {
+    id,
   },
 });
 

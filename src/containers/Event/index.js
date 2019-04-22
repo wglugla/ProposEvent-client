@@ -6,7 +6,8 @@ import { fetchEventRequest } from '../../state/ducks/event/actions';
 
 export class Event extends Component {
   componentDidMount() {
-    this.props.fetchEvent(localStorage.proposEventToken);
+    const currentId = this.props.match.params.id;
+    this.props.fetchEvent(localStorage.proposEventToken, currentId);
   }
   render() {
     if (this.props.currentEvent) {
@@ -20,9 +21,11 @@ export class Event extends Component {
 const mapStateToProps = state => ({
   currentEvent: state.event.currentEvent,
 });
-const mapDispatchToProps = dispatch => ({
-  fetchEvent: token => dispatch(fetchEventRequest(token)),
-});
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchEvent: (token, id) => dispatch(fetchEventRequest(token, id)),
+  };
+};
 
 export default connect(
   mapStateToProps,
