@@ -5,6 +5,7 @@ const initialState = {
     done: false,
     fail: false,
   },
+  events: [],
 };
 
 const actionHandlers = {
@@ -38,6 +39,16 @@ const actionHandlers = {
     return Object.assign({}, state, {
       currentEventFail: true,
       failText: action,
+    });
+  },
+  FETCH_EVENTS_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      events: action.payload.data,
+    });
+  },
+  FETCH_EVENTS_FAILED: (state, acction) => {
+    return Object.assign({}, state, {
+      events: false,
     });
   },
 };

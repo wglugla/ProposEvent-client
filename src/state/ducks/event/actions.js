@@ -5,6 +5,9 @@ export const CLEAR_EVENT_INFO = 'CLEAR_EVENT_INFO';
 export const FETCH_EVENT_REQUEST = 'FETCH_EVENT_REQUEST';
 export const FETCH_EVENT_RECEIVE = 'FETCH_EVENT_RECEIVE';
 export const FETCH_EVENT_FAIL = 'FETCH_EVENT_FAIL';
+export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST';
+export const FETCH_EVENTS_RECEIVE = 'FETCH_EVENTS_RECEIVE';
+export const FETCH_EVENTS_FAIL = 'FETCH_EVENTS_FAIL';
 
 export const createEventRequest = (eventData, token) => ({
   type: CREATE_EVENT_REQUEST,
@@ -51,6 +54,26 @@ export const fetchEventFailed = error => ({
   error,
 });
 
+export const fetchEventsRequest = token => ({
+  type: FETCH_EVENTS_REQUEST,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+export const fetchEventsReceive = json => ({
+  type: FETCH_EVENTS_RECEIVE,
+  payload: {
+    ...json,
+  },
+});
+
+export const fetchEventsFailed = error => ({
+  type: FETCH_EVENTS_FAIL,
+  error,
+});
+
 export default {
   createEventRequest,
   createEventReceive,
@@ -59,4 +82,7 @@ export default {
   fetchEventRequest,
   fetchEventReceive,
   fetchEventFailed,
+  fetchEventsRequest,
+  fetchEventsReceive,
+  fetchEventsFailed,
 };
