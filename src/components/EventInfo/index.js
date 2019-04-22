@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 const EventInfo = props => {
   const { title, place, date, description, event_tags } = props.event;
-  console.log('EVENT INFO: ', title, place, date, description, event_tags);
-  // console.log('JSON PARSE: '.JSON.parse(event_tags));
   return (
     <li>
       <Link to={`/events/${props.event.event_id}`}>

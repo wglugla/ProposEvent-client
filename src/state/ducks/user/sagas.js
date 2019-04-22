@@ -2,6 +2,11 @@ import { takeLatest } from 'redux-saga/effects';
 import { createSagaApiCall } from '../../../helpers/sagaHelper';
 import { userInfoDomain, userEventsDomain, userSignedEventsDomain } from '../domains';
 import { getUserId } from '../../../helpers/localStorageHelper';
+import {
+  FETCH_USER_REQUEST,
+  FETCH_USER_EVENTS_REQUEST,
+  FETCH_USER_SIGNED_EVENTS_REQUEST,
+} from './actions';
 
 import {
   userReceive,
@@ -30,7 +35,7 @@ const userSignedEventsSagaCall = createSagaApiCall(
 );
 
 export default function* eventSaga() {
-  yield takeLatest('FETCH_USER_REQUEST', userSagaCall);
-  yield takeLatest('FETCH_USER_EVENTS_REQUEST', userEventsSagaCall);
-  yield takeLatest('FETCH_USER_SIGNED_EVENTS_REQUEST', userSignedEventsSagaCall);
+  yield takeLatest(FETCH_USER_REQUEST, userSagaCall);
+  yield takeLatest(FETCH_USER_EVENTS_REQUEST, userEventsSagaCall);
+  yield takeLatest(FETCH_USER_SIGNED_EVENTS_REQUEST, userSignedEventsSagaCall);
 }

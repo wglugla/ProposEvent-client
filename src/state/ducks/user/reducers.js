@@ -2,6 +2,9 @@ import { createReducer } from '../../../helpers/reducerHelper';
 
 const initialState = {
   data: {},
+  error: false,
+  userEvents: null,
+  userSignedEvents: null,
 };
 
 const actionHandlers = {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import LoginForm from '../../components/LoginForm';
 
-import { loginRequest, loadUser } from '../../state/ducks/auth/actions';
+import { loginRequest, loadUserRequest } from '../../state/ducks/auth/actions';
 import { checkLocalToken } from '../../helpers/checkLocalToken';
 
 class Login extends Component {
@@ -13,7 +13,7 @@ class Login extends Component {
     }
   }
   render() {
-    if (!this.props.logged) {
+    if (!this.props.logged || this.props.failed) {
       return <LoginForm login={this.props.loginRequest} failed={this.props.failed} />;
     } else {
       return (
@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(loginRequest(userData));
     },
     loadUser: token => {
-      dispatch(loadUser(token));
+      dispatch(loadUserRequest(token));
     },
   };
 };

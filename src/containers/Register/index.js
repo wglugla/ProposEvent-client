@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 
 import RegisterForm from '../../components/RegisterForm';
 
-import { registerRequest, loadUser } from '../../state/ducks/auth/actions';
+import { registerRequest, loadUserRequest } from '../../state/ducks/auth/actions';
 import { tagsRequest } from '../../state/ducks/tags/actions';
 import { checkLocalToken } from '../../helpers/checkLocalToken';
 
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(registerRequest(userData));
     },
     loadUser: token => {
-      dispatch(loadUser(token));
+      dispatch(loadUserRequest(token));
     },
     getTags: () => dispatch(tagsRequest()),
   };

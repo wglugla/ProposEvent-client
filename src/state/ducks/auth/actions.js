@@ -4,7 +4,11 @@ export const AUTH_REGISTER_FAIL = 'AUTH_REGISTER_FAIL';
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_RECEIVE = 'AUTH_LOGIN_RECEIVE';
 export const AUTH_LOGIN_FAIL = 'AUTH_LOGIN_FAIL';
+export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
 export const LOAD_USER_RECEIVE = 'LOAD_USER_RECEIVE';
+export const LOAD_USER_FAIL = 'LOAD_USER_FAIL';
+export const AUTH_LOGOUT_REQUEST = 'AUTH_LOGOUT_REQUEST';
+export const AUTH_LOGOUT_RECEIVE = 'AUTH_LOGOUT_RECEIVE';
 
 export const registerRequest = userData => ({
   type: AUTH_REGISTER_REQUEST,
@@ -46,20 +50,31 @@ export const loginFailed = error => ({
   error,
 });
 
-/* When user already has token in localstorage */
-export const loadUser = token => ({
-  type: LOAD_USER_RECEIVE,
-  data: {
-    token,
+/* When user already has correct token in localstorage */
+export const loadUserRequest = token => ({
+  type: LOAD_USER_REQUEST,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    Authorization: `Bearer ${token}`,
   },
 });
 
+export const loadUserReceive = token => ({
+  type: LOAD_USER_RECEIVE,
+  token,
+});
+
+export const loadUserFailed = error => ({
+  type: LOAD_USER_FAIL,
+  error,
+});
+
 export const logoutRequest = () => ({
-  type: 'AUTH_LOGOUT_REQUEST',
+  type: AUTH_LOGOUT_REQUEST,
 });
 
 export const logoutReceive = () => ({
-  type: 'AUTH_LOGOUT_RECEIVE',
+  type: AUTH_LOGIN_RECEIVE,
 });
 
 export default {
@@ -69,6 +84,8 @@ export default {
   loginRequest,
   loginReceive,
   loginFailed,
-  loadUser,
+  loadUserRequest,
+  loadUserReceive,
+  loadUserFailed,
   logoutRequest,
 };

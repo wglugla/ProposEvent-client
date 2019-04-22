@@ -1,6 +1,7 @@
 import { takeLatest } from 'redux-saga/effects';
 import { createSagaApiCall } from '../../../helpers/sagaHelper';
 import { eventCreateDomain, eventInfoDomain, eventsDomain } from '../domains';
+import { CREATE_EVENT_REQUEST, FETCH_EVENTS_REQUEST, FETCH_EVENT_REQUEST } from './actions';
 
 import {
   createEventReceive,
@@ -33,7 +34,7 @@ const eventsFetchSagaCall = createSagaApiCall(
 );
 
 export default function* authSaga() {
-  yield takeLatest('CREATE_EVENT_REQUEST', eventCreateSagaCall);
-  yield takeLatest('FETCH_EVENT_REQUEST', eventFetchSagaCall);
-  yield takeLatest('FETCH_EVENTS_REQUEST', eventsFetchSagaCall);
+  yield takeLatest(CREATE_EVENT_REQUEST, eventCreateSagaCall);
+  yield takeLatest(FETCH_EVENT_REQUEST, eventFetchSagaCall);
+  yield takeLatest(FETCH_EVENTS_REQUEST, eventsFetchSagaCall);
 }

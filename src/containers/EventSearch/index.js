@@ -8,7 +8,6 @@ class EventSearch extends Component {
   componentDidMount() {
     const token = localStorage.proposEventToken;
     this.props.fetchEvents(token);
-    console.log('PROPS: ', this.props.events);
   }
   render() {
     return (
