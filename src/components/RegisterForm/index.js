@@ -2,7 +2,6 @@ import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import { CheckboxList } from '../CheckboxList';
 
 const SignupSchema = Yup.object().shape({
@@ -73,7 +72,6 @@ export const RegisterForm = props => {
           </form>
         )}
       />
-      {props.registerDone && !props.registerFail ? <Redirect to="/login" /> : null}
     </div>
   );
 };

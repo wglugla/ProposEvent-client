@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 import LoginForm from '../../components/LoginForm';
 
 import { loginRequest, loadUserRequest } from '../../state/ducks/auth/actions';
@@ -13,17 +12,7 @@ class Login extends Component {
     }
   }
   render() {
-    if (!this.props.logged || this.props.failed) {
-      return <LoginForm login={this.props.loginRequest} failed={this.props.failed} />;
-    } else {
-      return (
-        <Redirect
-          to={{
-            pathname: '/dashboard',
-          }}
-        />
-      );
-    }
+    return <LoginForm login={this.props.loginRequest} failed={this.props.failed} />;
   }
 }
 

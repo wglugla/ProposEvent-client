@@ -1,6 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { createSagaApiCall } from '../../../helpers/sagaHelper';
 import { getUserId, getToken } from '../../../helpers/localStorageHelper';
+import { push } from 'connected-react-router';
 import { userSignupDomain, userSigninDomain, userInfoDomain } from '../domains';
 import {
   AUTH_LOGIN_REQUEST,
@@ -14,17 +14,34 @@ import {
   registerFailed,
   loginReceive,
   loginFailed,
-  logoutReceive,
   loadUserReceive,
   loadUserFailed,
 } from './actions';
 
-const registerSagaCall = createSagaApiCall(
-  userSignupDomain,
-  'POST',
-  registerReceive,
-  registerFailed
-);
+function* registerSagaCall(action) {
+  try {
+    const { headers } = action;
+    let body = {};
+    if (action.payload) body = JSON.stringify(action.payload);
+    else body = null;
+    const data = yield call(fetch, userSignupDomain(), {
+      method: 'POST',
+      body,
+      headers,
+    });
+    const json = yield data.json();
+    if (json.status) {
+      yield put(registerReceive(json));
+      yield put(push('/login'));
+    } else {
+      console.warn(json);
+      yield put(registerFailed(json));
+    }
+  } catch (error) {
+    console.error(error);
+    yield put(registerFailed({ message: 'Error! :(' }));
+  }
+}
 
 function* loginSagaCall(action) {
   try {
@@ -40,6 +57,7 @@ function* loginSagaCall(action) {
       localStorage.setItem('proposEventUserId', json.userId);
       localStorage.setItem('proposEventToken', json.token);
       yield put(loginReceive(json));
+      yield put(push('/dashboard'));
     } else {
       yield put(loginFailed(json));
     }
@@ -51,7 +69,7 @@ function* loginSagaCall(action) {
 function* logoutSagaCall(action) {
   localStorage.removeItem('proposEventToken');
   localStorage.removeItem('proposEventUserId');
-  yield put(logoutReceive);
+  yield put(push('/login'));
 }
 
 function* authLoggedUser(action) {
@@ -64,11 +82,15 @@ function* authLoggedUser(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(loadUserReceive(getToken()));
+      yield put(push('/dashboard'));
     } else {
+      localStorage.removeItem('proposEventToken');
+      localStorage.removeItem('proposEventUserId');
       yield put(loadUserFailed(json));
     }
   } catch (error) {
-    console.warn(error);
+    localStorage.removeItem('proposEventToken');
+    localStorage.removeItem('proposEventUserId');
     yield put(loadUserFailed({ message: 'Error! :(' }));
   }
 }

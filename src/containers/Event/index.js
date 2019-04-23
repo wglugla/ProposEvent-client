@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { fetchEventRequest, deleteEventRequest } from '../../state/ducks/event/actions';
 
 import EventDescription from '../../components/EventDescription';
@@ -14,9 +13,6 @@ export class Event extends Component {
   }
   render() {
     const { currentUserId, ownerId } = this.props;
-    if (this.props.deleting.status) {
-      return <Redirect to="/" />;
-    }
     if (this.props.currentEvent) {
       return (
         <React.Fragment>

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { createBrowserHistory } from 'history';
-import { connectRouter } from 'connected-react-router';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import * as rootReducers from './ducks/reducers';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
@@ -26,6 +26,7 @@ export function configureStore() {
     : compose;
   const sagaMiddleware = createSagaMiddleware();
   middlewares.push(sagaMiddleware);
+  middlewares.push(routerMiddleware(history));
   const enhancer = composeEnhancers(applyMiddleware(...middlewares));
   const reducers = createRootReducerWithHistory(history);
   const store = createStore(reducers, enhancer);

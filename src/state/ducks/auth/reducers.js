@@ -8,7 +8,7 @@ const initialState = {
     message: null,
   },
   loginStatus: {
-    logged: false,
+    logged: null,
     fail: false,
     message: null,
   },
@@ -35,12 +35,6 @@ const actionHandlers = {
       },
     });
   },
-  AUTH_LOGIN_RECEIVE: (state, action) => {
-    return Object.assign({}, state, {
-      token: action.data.token,
-      loginStatus: { logged: true, fail: false, message: null },
-    });
-  },
   LOAD_USER_RECEIVE: (state, action) => {
     return Object.assign({}, state, {
       loginStatus: { fail: false, logged: true, token: action.token },
@@ -51,9 +45,10 @@ const actionHandlers = {
       loginStatus: { fail: true, logged: false, token: null },
     });
   },
-  AUTH_LOGOUT_RECEIVE: (state, action) => {
-    return Object.assign({}.state, {
-      loginStatus: { fail: false, logged: false, token: null },
+  AUTH_LOGIN_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      token: action.data.token,
+      loginStatus: { logged: true, fail: false, message: null },
     });
   },
 };

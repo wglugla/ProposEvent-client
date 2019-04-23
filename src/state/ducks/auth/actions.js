@@ -74,7 +74,7 @@ export const logoutRequest = () => ({
 });
 
 export const logoutReceive = () => ({
-  type: AUTH_LOGIN_RECEIVE,
+  type: AUTH_LOGOUT_RECEIVE,
 });
 
 export default {

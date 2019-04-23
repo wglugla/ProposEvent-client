@@ -1,7 +1,6 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
-import { Redirect } from 'react-router';
 import { CheckboxList } from '../CheckboxList';
 
 const EventSchema = Yup.object().shape({
@@ -64,14 +63,6 @@ export const EventCreatorForm = props => {
           </form>
         )}
       />
-      {props.created && !props.failed ? (
-        <Redirect
-          to={{
-            pathname: '/dashboard',
-            state: { redirectText: 'Wydarzenie utworzone pomyślnie' },
-          }}
-        />
-      ) : null}
     </div>
   );
 };

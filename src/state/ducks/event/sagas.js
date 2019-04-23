@@ -1,5 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { createSagaApiCall } from '../../../helpers/sagaHelper';
+import { push } from 'connected-react-router';
 import { eventCreateDomain, eventInfoDomain, eventsDomain, eventDeleteDomain } from '../domains';
 import {
   CREATE_EVENT_REQUEST,
@@ -19,12 +20,35 @@ import {
   deleteEventFailed,
 } from './actions';
 
-const eventCreateSagaCall = createSagaApiCall(
-  eventCreateDomain,
-  'POST',
-  createEventReceive,
-  createEventFailed
-);
+function* eventCreateSagaCall(action) {
+  try {
+    const { headers } = action;
+    let body = {};
+    if (action.payload) body = JSON.stringify(action.payload);
+    else body = null;
+    const data = yield call(fetch, eventCreateDomain(), {
+      method: 'POST',
+      body,
+      headers,
+    });
+    const json = yield data.json();
+    if (json.status) {
+      yield put(createEventReceive(json));
+      yield put(
+        push({
+          pathname: '/dashboard',
+          message: 'Wydarzenie utworzone pomyślnie',
+        })
+      );
+    } else {
+      console.warn(json);
+      yield put(createEventFailed(json));
+    }
+  } catch (error) {
+    console.error(error);
+    yield put(createEventFailed({ message: 'Error! :(' }));
+  }
+}
 
 function* eventFetchSagaCall(action) {
   try {
@@ -61,6 +85,7 @@ function* eventDeleteSagaCall(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(deleteEventReceive(json));
+      yield put(push('/dashboard'));
     } else {
       yield put(deleteEventFailed(json));
     }

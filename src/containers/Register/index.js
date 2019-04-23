@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
 
 import RegisterForm from '../../components/RegisterForm';
 
@@ -15,17 +14,13 @@ class Register extends Component {
     }
   }
   render() {
-    if (!this.props.logged) {
-      return (
-        <RegisterForm
-          register={this.props.registerRequest}
-          registerDone={this.props.registerDone}
-          registerFail={this.props.registerFail}
-        />
-      );
-    } else {
-      return <Redirect to="/dashboard" />;
-    }
+    return (
+      <RegisterForm
+        register={this.props.registerRequest}
+        registerDone={this.props.registerDone}
+        registerFail={this.props.registerFail}
+      />
+    );
   }
 }
 

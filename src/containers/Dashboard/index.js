@@ -38,7 +38,6 @@ class Dashboard extends Component {
           <h2>Weźmiesz udział</h2>
           <EventsList events={this.props.signedEvents} />
         </div>
-        <p>{this.props.location.state ? this.props.location.state.redirectText : ''}</p>
       </React.Fragment>
     );
   }
@@ -50,7 +49,6 @@ const mapDispatchToProps = dispatch => ({
   fetchSignedEvents: token => dispatch(userSignedEventsRequest(token)),
   logout: () => {
     dispatch(logoutRequest());
-    window.location.reload();
   },
 });
 
