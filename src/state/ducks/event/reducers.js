@@ -6,6 +6,8 @@ const initialState = {
     fail: false,
   },
   events: [],
+  currentEvent: {},
+  deleting: { status: null, message: null },
 };
 
 const actionHandlers = {
@@ -49,6 +51,21 @@ const actionHandlers = {
   FETCH_EVENTS_FAILED: (state, acction) => {
     return Object.assign({}, state, {
       events: false,
+    });
+  },
+  DELETE_EVENT_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      deleting: {
+        status: true,
+      },
+    });
+  },
+  DELETE_EVENT_FAILED: (state, action) => {
+    return Object.assign({}, state, {
+      deleting: {
+        status: false,
+        message: action.error,
+      },
     });
   },
 };

@@ -8,6 +8,9 @@ export const FETCH_EVENT_FAIL = 'FETCH_EVENT_FAIL';
 export const FETCH_EVENTS_REQUEST = 'FETCH_EVENTS_REQUEST';
 export const FETCH_EVENTS_RECEIVE = 'FETCH_EVENTS_RECEIVE';
 export const FETCH_EVENTS_FAIL = 'FETCH_EVENTS_FAIL';
+export const DELETE_EVENT_REQUEST = 'DELETE_EVENT_REQUEST';
+export const DELETE_EVENT_RECEIVE = 'DELETE_EVENT_RECEIVE';
+export const DELETE_EVENT_FAIL = 'DELETE_EVENT_FAIL';
 
 export const createEventRequest = (eventData, token) => ({
   type: CREATE_EVENT_REQUEST,
@@ -74,6 +77,29 @@ export const fetchEventsReceive = json => ({
 
 export const fetchEventsFailed = error => ({
   type: FETCH_EVENTS_FAIL,
+  error,
+});
+
+export const deleteEventRequest = (token, id) => ({
+  type: DELETE_EVENT_REQUEST,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    Authorization: `Bearer ${token}`,
+  },
+  payload: {
+    event_id: id,
+  },
+});
+
+export const deleteEventReceive = json => ({
+  type: DELETE_EVENT_RECEIVE,
+  payload: {
+    ...json,
+  },
+});
+
+export const deleteEventFailed = error => ({
+  type: DELETE_EVENT_FAIL,
   error,
 });
 

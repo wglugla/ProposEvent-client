@@ -9,6 +9,7 @@ export const userSigninDomain = () => `${domain}/signin`;
 
 export const eventsDomain = () => `${domain}/events`;
 export const eventInfoDomain = id => `${domain}/events/${id}`;
+export const eventDeleteDomain = id => `${domain}/events/${id}`;
 export const eventCreateDomain = () => `${domain}/events/create`;
 export const eventModifyComain = id => `${domain}/events/modyfy/${id}`;
 export const eventAddMember = () => `${domain}/events/addmember`;
