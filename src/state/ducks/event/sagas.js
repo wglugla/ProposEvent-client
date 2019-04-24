@@ -1,12 +1,21 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { createSagaApiCall } from '../../../helpers/sagaHelper';
 import { push } from 'connected-react-router';
-import { eventCreateDomain, eventInfoDomain, eventsDomain, eventDeleteDomain } from '../domains';
+import {
+  eventCreateDomain,
+  eventInfoDomain,
+  eventsDomain,
+  eventDeleteDomain,
+  eventAddMemberDomain,
+  eventRemoveMemberDomain,
+} from '../domains';
 import {
   CREATE_EVENT_REQUEST,
   FETCH_EVENTS_REQUEST,
   FETCH_EVENT_REQUEST,
   DELETE_EVENT_REQUEST,
+  ADD_EVENT_MEMBER_REQUEST,
+  REMOVE_EVENT_MEMBER_REQUEST,
 } from './actions';
 
 import {
@@ -18,6 +27,10 @@ import {
   fetchEventsFailed,
   deleteEventReceive,
   deleteEventFailed,
+  addEventMemberReceive,
+  addEventMemberFailed,
+  removeEventMemberReceive,
+  removeEventMemberFailed,
 } from './actions';
 
 function* eventCreateSagaCall(action) {
@@ -94,9 +107,52 @@ function* eventDeleteSagaCall(action) {
   }
 }
 
+function* addMemberSagaCall(action) {
+  try {
+    const { headers, payload } = action;
+    let body = JSON.stringify(payload);
+    const data = yield call(fetch, eventAddMemberDomain(), {
+      method: 'POST',
+      headers,
+      body,
+    });
+    const json = yield data.json();
+    if (json.status) {
+      yield put(addEventMemberReceive(json));
+    } else {
+      yield put(addEventMemberFailed(json));
+    }
+  } catch (error) {
+    yield put(addEventMemberFailed(error));
+  }
+}
+
+function* removeMemberSagaCall(action) {
+  try {
+    const { headers, payload } = action;
+    let body = JSON.stringify(payload);
+    const data = yield call(fetch, eventRemoveMemberDomain(), {
+      method: 'POST',
+      headers,
+      body,
+    });
+    const json = yield data.json();
+    console.log('JSON: ', json);
+    if (json.status) {
+      yield put(removeEventMemberReceive(json));
+    } else {
+      yield put(removeEventMemberFailed(json));
+    }
+  } catch (error) {
+    yield put(removeEventMemberFailed(error));
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(CREATE_EVENT_REQUEST, eventCreateSagaCall);
   yield takeLatest(FETCH_EVENT_REQUEST, eventFetchSagaCall);
   yield takeLatest(FETCH_EVENTS_REQUEST, eventsFetchSagaCall);
   yield takeLatest(DELETE_EVENT_REQUEST, eventDeleteSagaCall);
+  yield takeLatest(ADD_EVENT_MEMBER_REQUEST, addMemberSagaCall);
+  yield takeLatest(REMOVE_EVENT_MEMBER_REQUEST, removeMemberSagaCall);
 }

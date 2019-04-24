@@ -11,9 +11,9 @@ export const eventsDomain = () => `${domain}/events`;
 export const eventInfoDomain = id => `${domain}/events/${id}`;
 export const eventDeleteDomain = id => `${domain}/events/${id}`;
 export const eventCreateDomain = () => `${domain}/events/create`;
-export const eventModifyComain = id => `${domain}/events/modyfy/${id}`;
-export const eventAddMember = () => `${domain}/events/addmember`;
-export const eventRemoveMember = () => `${domain}/events/removemember`;
+export const eventModifyDomain = id => `${domain}/events/modyfy/${id}`;
+export const eventAddMemberDomain = () => `${domain}/events/addmember`;
+export const eventRemoveMemberDomain = () => `${domain}/events/removemember`;
 
 export const tagsDomain = () => `${domain}/tags`;
 export const tagInfoDomain = id => `${domain}/tags/${id}`;
