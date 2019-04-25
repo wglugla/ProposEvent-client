@@ -14,6 +14,7 @@ export const eventCreateDomain = () => `${domain}/events/create`;
 export const eventModifyDomain = id => `${domain}/events/modyfy/${id}`;
 export const eventAddMemberDomain = () => `${domain}/events/addmember`;
 export const eventRemoveMemberDomain = () => `${domain}/events/removemember`;
+export const eventMatchDomain = (id, tags) => `${domain}/events/match/${id}?tags=${tags}`;
 
 export const tagsDomain = () => `${domain}/tags`;
 export const tagInfoDomain = id => `${domain}/tags/${id}`;

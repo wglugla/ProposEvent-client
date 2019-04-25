@@ -8,6 +8,7 @@ import {
   eventDeleteDomain,
   eventAddMemberDomain,
   eventRemoveMemberDomain,
+  eventMatchDomain,
 } from '../domains';
 import {
   CREATE_EVENT_REQUEST,
@@ -16,6 +17,7 @@ import {
   DELETE_EVENT_REQUEST,
   ADD_EVENT_MEMBER_REQUEST,
   REMOVE_EVENT_MEMBER_REQUEST,
+  MATCH_EVENTS_REQUEST,
 } from './actions';
 
 import {
@@ -31,6 +33,8 @@ import {
   addEventMemberFailed,
   removeEventMemberReceive,
   removeEventMemberFailed,
+  matchEventsReceive,
+  matchEventsFailed,
 } from './actions';
 
 function* eventCreateSagaCall(action) {
@@ -149,6 +153,27 @@ function* removeMemberSagaCall(action) {
   }
 }
 
+function* matchEventsSagaCall(action) {
+  try {
+    const { headers, payload } = action;
+    const { user_id, tags } = payload;
+    console.log('PRZEDZAPYTANIEM');
+    const data = yield call(fetch, eventMatchDomain(user_id, JSON.stringify(tags)), {
+      method: 'GET',
+      headers,
+    });
+    console.log('DATA: ', data);
+    const json = yield data.json();
+    if (json.status) {
+      yield put(matchEventsReceive(json));
+    } else {
+      yield put(matchEventsFailed(json));
+    }
+  } catch (error) {
+    yield put(matchEventsFailed(error));
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(CREATE_EVENT_REQUEST, eventCreateSagaCall);
   yield takeLatest(FETCH_EVENT_REQUEST, eventFetchSagaCall);
@@ -156,4 +181,5 @@ export default function* authSaga() {
   yield takeLatest(DELETE_EVENT_REQUEST, eventDeleteSagaCall);
   yield takeLatest(ADD_EVENT_MEMBER_REQUEST, addMemberSagaCall);
   yield takeLatest(REMOVE_EVENT_MEMBER_REQUEST, removeMemberSagaCall);
+  yield takeLatest(MATCH_EVENTS_REQUEST, matchEventsSagaCall);
 }

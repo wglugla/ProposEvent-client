@@ -7,6 +7,7 @@ const initialState = {
   },
   events: [],
   currentEvent: {},
+  proposedEvents: [],
   deleting: { status: null, message: null },
 };
 
@@ -66,6 +67,11 @@ const actionHandlers = {
         status: false,
         message: action.error,
       },
+    });
+  },
+  MATCH_EVENTS_RECEIVE: (state, action) => {
+    return Object.assign({}, state, {
+      proposedEvents: action.payload.data,
     });
   },
 };

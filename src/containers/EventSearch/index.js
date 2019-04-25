@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchEventsRequest } from '../../state/ducks/event/actions';
+import { fetchEventsRequest, matchEventsRequest } from '../../state/ducks/event/actions';
 import EventInfo from '../../components/EventInfo';
 
 class EventSearch extends Component {
   componentDidMount() {
     const token = localStorage.proposEventToken;
-    this.props.fetchEvents(token);
+    const { userId, tags } = this.props;
+    this.props.fetchEvents(token, userId, tags);
   }
   render() {
     return (
@@ -20,8 +21,8 @@ class EventSearch extends Component {
           <p> Ładowanie tagów </p>
         )}
         <h2> Znalezione wydarzenia: </h2>
-        {this.props.events ? (
-          this.props.events.map(event => <EventInfo key={event.event_id} event={event} />)
+        {this.props.proposedEvents ? (
+          this.props.proposedEvents.map(event => <EventInfo key={event.event_id} event={event} />)
         ) : (
           <p> Wyszukiwanie... </p>
         )}
@@ -31,11 +32,13 @@ class EventSearch extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchEvents: token => dispatch(fetchEventsRequest(token)),
+  fetchEvents: (token, user_id, tags) => dispatch(matchEventsRequest(token, user_id, tags)),
 });
 
 const mapStateToProps = state => ({
+  userId: state.user.data.user_id,
   tags: state.user.data.user_tags,
+  proposedEvents: state.event.proposedEvents,
   events: state.event.events,
 });
 
