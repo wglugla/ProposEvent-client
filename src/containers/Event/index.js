@@ -18,8 +18,8 @@ export class Event extends Component {
   }
   checkSigned() {
     const { signedEvents, currentEvent } = this.props;
-    signedEvents.filter(event => event.event_id === currentEvent.event_id);
-    return signedEvents.length ? true : false;
+    const targetedEvent = signedEvents.find(event => event.event_id === currentEvent.event_id);
+    return targetedEvent ? true : false;
   }
   render() {
     const { currentUserId, ownerId } = this.props;

@@ -119,6 +119,7 @@ function* addMemberSagaCall(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(addEventMemberReceive(json));
+      yield put(push('/dashboard'));
     } else {
       yield put(addEventMemberFailed(json));
     }
@@ -137,9 +138,9 @@ function* removeMemberSagaCall(action) {
       body,
     });
     const json = yield data.json();
-    console.log('JSON: ', json);
     if (json.status) {
       yield put(removeEventMemberReceive(json));
+      yield put(push('/dashboard'));
     } else {
       yield put(removeEventMemberFailed(json));
     }
