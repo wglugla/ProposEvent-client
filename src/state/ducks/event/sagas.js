@@ -157,12 +157,10 @@ function* matchEventsSagaCall(action) {
   try {
     const { headers, payload } = action;
     const { user_id, tags } = payload;
-    console.log('PRZEDZAPYTANIEM');
     const data = yield call(fetch, eventMatchDomain(user_id, JSON.stringify(tags)), {
       method: 'GET',
       headers,
     });
-    console.log('DATA: ', data);
     const json = yield data.json();
     if (json.status) {
       yield put(matchEventsReceive(json));

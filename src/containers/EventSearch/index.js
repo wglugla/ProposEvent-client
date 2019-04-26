@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchEventsRequest, matchEventsRequest } from '../../state/ducks/event/actions';
+import { matchEventsRequest } from '../../state/ducks/event/actions';
 import EventInfo from '../../components/EventInfo';
 
 class EventSearch extends Component {

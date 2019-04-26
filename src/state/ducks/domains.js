@@ -6,6 +6,7 @@ export const userEventsDomain = id => `${domain}/users/${id}/events`;
 export const userSignedEventsDomain = id => `${domain}/users/${id}/signedEvents`;
 export const userSignupDomain = () => `${domain}/signup`;
 export const userSigninDomain = () => `${domain}/signin`;
+export const eventMatchDomain = (id, tags) => `${domain}/user/${id}/events/suggested?tags=${tags}`;
 
 export const eventsDomain = () => `${domain}/events`;
 export const eventInfoDomain = id => `${domain}/events/${id}`;
@@ -14,7 +15,6 @@ export const eventCreateDomain = () => `${domain}/events/create`;
 export const eventModifyDomain = id => `${domain}/events/modyfy/${id}`;
 export const eventAddMemberDomain = () => `${domain}/events/addmember`;
 export const eventRemoveMemberDomain = () => `${domain}/events/removemember`;
-export const eventMatchDomain = (id, tags) => `${domain}/events/match/${id}?tags=${tags}`;
 
 export const tagsDomain = () => `${domain}/tags`;
 export const tagInfoDomain = id => `${domain}/tags/${id}`;
