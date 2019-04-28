@@ -3,10 +3,15 @@ import './App.css';
 import '../../normalize.css';
 
 import Routes from '../../routes';
+import MainLayout from '../../components/MainLayout';
 
 class App extends Component {
   render() {
-    return <Routes />;
+    return (
+      <MainLayout>
+        <Routes />;
+      </MainLayout>
+    );
   }
 }
 
