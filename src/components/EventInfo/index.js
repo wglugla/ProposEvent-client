@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventInfo = props => {
-  const { title, place, date, description, event_tags } = props.event;
+  const { title, place, date, description, event_tags, accuracyPercentage } = props.event;
   return (
     <li>
       <Link to={`/events/${props.event.event_id}`}>
@@ -16,6 +16,7 @@ const EventInfo = props => {
             <li key={tag}> {tag} </li>
           ))}
         </ul>
+        {accuracyPercentage !== undefined ? <p> Zgodność: {accuracyPercentage}%</p> : null}
         <p> -------------------- </p>
       </Link>
     </li>

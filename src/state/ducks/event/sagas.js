@@ -163,6 +163,12 @@ function* matchEventsSagaCall(action) {
     });
     const json = yield data.json();
     if (json.status) {
+      json.data.sort((a, b) => {
+        if (a.accuracyPercentage <= b.accuracyPercentage) {
+          return 1;
+        }
+        return -1;
+      });
       yield put(matchEventsReceive(json));
     } else {
       yield put(matchEventsFailed(json));
