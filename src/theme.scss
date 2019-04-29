@@ -8,3 +8,11 @@
 .card {
   margin: 2rem 0;
 }
+
+.field {
+  flex-direction: column;
+}
+
+.field-body {
+  flex-wrap: wrap;
+}

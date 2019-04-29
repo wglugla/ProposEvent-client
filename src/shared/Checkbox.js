@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledCheckboxContainer = styled.label`
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-left: 1.8rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
