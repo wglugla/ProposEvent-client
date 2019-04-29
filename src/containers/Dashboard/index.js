@@ -13,6 +13,16 @@ import {
 } from '../../state/ducks/user/actions';
 
 import { logoutRequest } from '../../state/ducks/auth/actions';
+import styled from 'styled-components';
+
+const StyledSection = styled.section`
+  padding: 5rem 3rem;
+  line-height: 2;
+`;
+
+const StyledButton = styled.button`
+  margin: 1rem 0;
+`;
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -23,22 +33,26 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <React.Fragment>
-        <div>
+      <StyledSection className="section columns is-variable is-8">
+        <div className="column">
           <User userinfo={this.props.user} />
-          <Link to="/events/create"> Stwórz nowe wydarzenie </Link>
           <Link to="/events"> Znajdź nowe wydarzenia </Link>
-          <button onClick={this.props.logout}> Wyloguj się </button>
+          <Link to="/events/create"> Stwórz nowe wydarzenie </Link>
+          <StyledButton className="button is-info" onClick={this.props.logout}>
+            Wyloguj się
+          </StyledButton>
         </div>
-        <div>
-          <h2>Stworzone przez Ciebie</h2>
-          <EventsList events={this.props.events} />
+        <div className="columns column is-two-thirds">
+          <div className="column is-half">
+            <h1 className="title is-4">Stworzone przez Ciebie</h1>
+            <EventsList events={this.props.events} />
+          </div>
+          <div className="column is-half">
+            <h1 className="title is-4">Weźmiesz udział</h1>
+            <EventsList events={this.props.signedEvents} />
+          </div>
         </div>
-        <div>
-          <h2>Weźmiesz udział</h2>
-          <EventsList events={this.props.signedEvents} />
-        </div>
-      </React.Fragment>
+      </StyledSection>
     );
   }
 }

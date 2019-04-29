@@ -1,2 +1,10 @@
 @import 'bulma/sass/utilities/initial-variables.sass';
 @import 'bulma/bulma.sass';
+
+.card-content {
+  padding: .9rem;
+}
+
+.card {
+  margin: 2rem 0;
+}
