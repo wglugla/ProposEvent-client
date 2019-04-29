@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <MainLayout>
-        <Routes />;
+        <Routes />
       </MainLayout>
     );
   }

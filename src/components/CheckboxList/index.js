@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { tagsDomain } from '../../state/ducks/domains';
 import { Field } from 'formik';
+import {
+  StyledCheckboxContainer,
+  StyledCheckboxInput,
+  StyledCheckbox,
+} from '../../shared/Checkbox';
+import { StyledLabel } from '../../shared/Form';
 
 function Checkbox(props) {
   return (
-    <Field name={props.name}>
+    <Field className="field" name={props.name}>
       {({ field, form }) => (
-        <label>
-          <input
+        <StyledCheckboxContainer className="checkbox">
+          <StyledCheckboxInput
             type="checkbox"
+            className="checkbox"
             {...props}
             checked={field.value.includes(props.value)}
             onChange={() => {
@@ -25,8 +32,9 @@ function Checkbox(props) {
               }
             }}
           />
+          <StyledCheckbox />
           {props.value}
-        </label>
+        </StyledCheckboxContainer>
       )}
     </Field>
   );
@@ -43,12 +51,15 @@ export const CheckboxList = () => {
     getTags();
   }, []);
   return (
-    <React.Fragment>
-      {tags[0] ? (
-        tags.map(tag => <Checkbox key={tag.tag_id} name="tags" value={tag.value} />)
-      ) : (
-        <p> Wczytywanie tagów... </p>
-      )}
-    </React.Fragment>
+    <div className="field is-horizontal">
+      <StyledLabel className="label"> Zainteresowania: </StyledLabel>
+      <div className="field-body">
+        {tags[0] ? (
+          tags.map(tag => <Checkbox key={tag.tag_id} name="tags" value={tag.value} />)
+        ) : (
+          <p> Wczytywanie tagów... </p>
+        )}
+      </div>
+    </div>
   );
 };
