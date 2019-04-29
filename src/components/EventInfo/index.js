@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const StyledTagsList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const EventInfo = props => {

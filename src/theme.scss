@@ -9,6 +9,12 @@
   margin: 2rem 0;
 }
 
+.card-footer-item {
+  white-space: pre;
+  border-bottom: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb;
+}
+
 .field {
   flex-direction: column;
 }
