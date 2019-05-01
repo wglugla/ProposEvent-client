@@ -18,7 +18,7 @@ class Register extends Component {
       <RegisterForm
         register={this.props.registerRequest}
         registerDone={this.props.registerDone}
-        registerFail={this.props.registerFail}
+        registerInfo={this.props.registerInfo}
       />
     );
   }
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => ({
   registerDone: state.auth.registerStatus.done,
-  registerFail: state.auth.registerStatus.fail,
+  registerInfo: state.auth.registerStatus,
   logged: state.auth.loginStatus.logged,
 });
 

@@ -11,6 +11,8 @@ import EventDescription from '../../components/EventDescription';
 import OwnerEventForm from '../../components/OwnerEventForm';
 import EventForm from '../../components/EventForm';
 
+import { StyledSection } from '../../shared/Container';
+
 export class Event extends Component {
   componentDidMount() {
     const currentId = this.props.match.params.id;
@@ -25,7 +27,7 @@ export class Event extends Component {
     const { currentUserId, ownerId } = this.props;
     if (this.props.currentEvent) {
       return (
-        <React.Fragment>
+        <StyledSection className="section">
           <EventDescription event={this.props.currentEvent} id={this.props.match.params.id} />
           {currentUserId === ownerId ? (
             <OwnerEventForm
@@ -41,7 +43,7 @@ export class Event extends Component {
               eventId={this.props.currentEvent.event_id}
             />
           )}
-        </React.Fragment>
+        </StyledSection>
       );
     } else {
       return <p> Ładowanie ... </p>;

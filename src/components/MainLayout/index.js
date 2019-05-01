@@ -14,33 +14,32 @@ export class MainLayout extends Component {
               <h1 className="title is-4"> Witaj w aplikacji ProposEvent! </h1>
             </a>
           </div>
+
           <div className="navbar-end">
-            <div className="navbar-start">
-              <a
-                className="navbar-item"
-                href="https://github.com/wglugla"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                My Github
-              </a>
-              <a
-                className="navbar-item"
-                href="https://github.com/wglugla/ProposEvent-client"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Frontend Repo
-              </a>
-              <a
-                className="navbar-item"
-                href="https://github.com/wglugla/ProposEvent-server"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Backend Repo
-              </a>
-            </div>
+            <a
+              className="navbar-item"
+              href="https://github.com/wglugla"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              My Github
+            </a>
+            <a
+              className="navbar-item"
+              href="https://github.com/wglugla/ProposEvent-client"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Frontend Repo
+            </a>
+            <a
+              className="navbar-item"
+              href="https://github.com/wglugla/ProposEvent-server"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Backend Repo
+            </a>
           </div>
         </StyledNavbar>
 

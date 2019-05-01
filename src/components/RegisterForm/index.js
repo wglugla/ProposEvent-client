@@ -3,6 +3,7 @@ import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { CheckboxList } from '../CheckboxList';
+import { ErrorInfo } from '../ErrorInfo';
 
 import { StyledSection, StyledContainer } from '../../shared/Container';
 import { StyledForm } from '../../shared/Form';
@@ -28,6 +29,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 export const RegisterForm = props => {
+  const { fail, message } = props.registerInfo;
   return (
     <StyledSection className="section">
       <StyledContainer className="container">
@@ -114,6 +116,7 @@ export const RegisterForm = props => {
             </StyledForm>
           )}
         />
+        {fail ? <ErrorInfo message={message} /> : null}
       </StyledContainer>
     </StyledSection>
   );

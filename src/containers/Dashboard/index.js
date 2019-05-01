@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import User from '../../components/User';
 import EventsList from '../../components/EventsList';
+import Info from '../../components/Info';
 
 import {
   userRequest,
@@ -32,6 +33,7 @@ class Dashboard extends Component {
     this.props.fetchSignedEvents(token);
   }
   render() {
+    const { message } = this.props.location;
     return (
       <StyledSection className="section columns is-variable is-8">
         <div className="column">
@@ -52,6 +54,7 @@ class Dashboard extends Component {
             <EventsList events={this.props.signedEvents} />
           </div>
         </div>
+        {message ? <Info message={message} /> : null}
       </StyledSection>
     );
   }

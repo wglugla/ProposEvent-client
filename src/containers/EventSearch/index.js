@@ -4,6 +4,17 @@ import { connect } from 'react-redux';
 import { matchEventsRequest } from '../../state/ducks/event/actions';
 import EventInfo from '../../components/EventInfo';
 
+import { StyledSection } from '../../shared/Container';
+import styled from 'styled-components';
+
+const StyledInlineTitle = styled.h2`
+  display: inline;
+`;
+
+const StyledTitle = styled.h2`
+  margin: 2rem 0;
+`;
+
 class EventSearch extends Component {
   componentDidMount() {
     const token = localStorage.proposEventToken;
@@ -12,21 +23,33 @@ class EventSearch extends Component {
   }
   render() {
     return (
-      <React.Fragment>
-        <h1> Wyszukiwarka eventów </h1>
-        <h2> Twoje tagi: </h2>
+      <StyledSection className="section">
+        <h1 className="title is-3"> Wyszukiwarka eventów </h1>
+        <StyledInlineTitle className="title is-6"> Twoje tagi: </StyledInlineTitle>
         {this.props.tags ? (
-          JSON.parse(this.props.tags).map(el => <li key={el}> {el} </li>)
+          JSON.parse(this.props.tags).map(el => (
+            <li className="tag is-size-7" key={el}>
+              {el}
+            </li>
+          ))
         ) : (
           <p> Ładowanie tagów </p>
         )}
-        <h2> Znalezione wydarzenia: </h2>
-        {this.props.proposedEvents ? (
-          this.props.proposedEvents.map(event => <EventInfo key={event.event_id} event={event} />)
-        ) : (
-          <p> Wyszukiwanie... </p>
-        )}
-      </React.Fragment>
+        <StyledTitle className="title is-4"> Znalezione wydarzenia: </StyledTitle>
+        <ul>
+          {this.props.proposedEvents ? (
+            this.props.proposedEvents.length ? (
+              this.props.proposedEvents.map(event => (
+                <EventInfo key={event.event_id} event={event} />
+              ))
+            ) : (
+              <p> Brak nowych wydarzeń</p>
+            )
+          ) : (
+            <p> Wyszukiwanie... </p>
+          )}
+        </ul>
+      </StyledSection>
     );
   }
 }

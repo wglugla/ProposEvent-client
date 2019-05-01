@@ -9,7 +9,7 @@ const StyledTagsList = styled.ul`
 `;
 
 const EventInfo = props => {
-  const { title, place, date, description, event_tags, accuracyPercentage } = props.event;
+  const { title, place, date, event_tags, accuracyPercentage } = props.event;
   return (
     <li>
       <Link to={`/events/${props.event.event_id}`}>
@@ -21,7 +21,6 @@ const EventInfo = props => {
             <div className="content">
               <p> Data: {date} </p>
               <p> Miejsce: {place} </p>
-              <p> {description} </p>
               {accuracyPercentage !== undefined ? <p> Zgodność: {accuracyPercentage}%</p> : null}
             </div>
           </div>

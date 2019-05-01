@@ -16,6 +16,7 @@ export const history = createBrowserHistory();
 const createRootReducerWithHistory = history =>
   combineReducers({
     router: connectRouter(history),
+    globalError: false,
     ...rootReducers,
   });
 

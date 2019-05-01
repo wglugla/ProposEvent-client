@@ -34,11 +34,9 @@ function* registerSagaCall(action) {
       yield put(registerReceive(json));
       yield put(push('/login'));
     } else {
-      console.warn(json);
       yield put(registerFailed(json));
     }
   } catch (error) {
-    console.error(error);
     yield put(registerFailed({ message: 'Error! :(' }));
   }
 }

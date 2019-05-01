@@ -1,19 +1,25 @@
 import React from 'react';
 
+import { StyledForm } from '../../shared/Form';
+
 export const OwnerEventForm = props => {
   const deleteSubmit = e => {
     e.preventDefault();
     props.onDelete(localStorage.proposEventToken, props.eventId);
   };
   return (
-    <React.Fragment>
-      <form>
-        <button type="submit"> Edytuj wydarzenie </button>
-      </form>
-      <form onSubmit={deleteSubmit}>
-        <button type="submit"> Usuń wydarzenie </button>
-      </form>
-    </React.Fragment>
+    <div>
+      <StyledForm>
+        <button className="button is-info" type="submit">
+          Edytuj wydarzenie
+        </button>
+      </StyledForm>
+      <StyledForm onSubmit={deleteSubmit}>
+        <button className="button is-danger" type="submit">
+          Usuń wydarzenie
+        </button>
+      </StyledForm>
+    </div>
   );
 };
 

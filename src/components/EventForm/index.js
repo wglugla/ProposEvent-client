@@ -13,13 +13,18 @@ export const EventForm = props => {
   if (signed)
     return (
       <form onSubmit={removeMember}>
-        <button type="submit"> Opuść wydarzenie</button>
+        <button className="button is-danger" type="submit">
+          {' '}
+          Opuść wydarzenie
+        </button>
       </form>
     );
   else
     return (
       <form onSubmit={addMember}>
-        <button type="submit"> Dołącz do wydarzenia </button>
+        <button className="button is-info" type="submit">
+          Dołącz do wydarzenia
+        </button>
       </form>
     );
 };
