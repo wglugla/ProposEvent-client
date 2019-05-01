@@ -10,9 +10,12 @@ class PrivateRoute extends Component {
     this.props.verify(localStorage.proposEventToken);
   }
   render() {
-    const { logged, PrivateComponent, ...rest } = this.props;
+    const { logged, userData, PrivateComponent, ...rest } = this.props;
     if (logged === null) {
       return <p> Autoryzacja trwa..</p>;
+    }
+    if (logged && userData === null) {
+      return <p> Trwa wczytywanie danych..</p>;
     } else {
       return (
         <Route
@@ -41,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => {
   return {
     logged: state.auth.loginStatus.logged,
+    userData: state.user.data,
   };
 };
 

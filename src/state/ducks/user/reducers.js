@@ -1,7 +1,7 @@
 import { createReducer } from '../../../helpers/reducerHelper';
 
 const initialState = {
-  data: {},
+  data: null,
   error: false,
   userEvents: null,
   userSignedEvents: null,

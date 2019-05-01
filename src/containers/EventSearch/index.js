@@ -37,7 +37,7 @@ class EventSearch extends Component {
         )}
         <StyledTitle className="title is-4"> Znalezione wydarzenia: </StyledTitle>
         <ul>
-          {this.props.proposedEvents ? (
+          {this.props.proposedEvents && this.props.tags ? (
             this.props.proposedEvents.length ? (
               this.props.proposedEvents.map(event => (
                 <EventInfo key={event.event_id} event={event} />

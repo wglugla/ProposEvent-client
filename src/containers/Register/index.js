@@ -6,11 +6,13 @@ import RegisterForm from '../../components/RegisterForm';
 import { registerRequest, loadUserRequest } from '../../state/ducks/auth/actions';
 import { tagsRequest } from '../../state/ducks/tags/actions';
 import { checkLocalToken } from '../../helpers/checkLocalToken';
+import { push } from 'connected-react-router';
 
 class Register extends Component {
   componentDidMount() {
     if (checkLocalToken()) {
       this.props.loadUser(localStorage.proposEventToken);
+      this.props.redirect();
     }
   }
   render() {
@@ -34,6 +36,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadUserRequest(token));
     },
     getTags: () => dispatch(tagsRequest()),
+    redirect: () => dispatch(push('/dashboard')),
   };
 };
 

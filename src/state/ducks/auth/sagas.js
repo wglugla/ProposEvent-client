@@ -18,6 +18,8 @@ import {
   loadUserFailed,
 } from './actions';
 
+import { userRequest } from '../user/actions';
+
 function* registerSagaCall(action) {
   try {
     const { headers } = action;
@@ -80,11 +82,15 @@ function* authLoggedUser(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(loadUserReceive(getToken()));
-      yield put(push('/dashboard'));
+      yield put(userRequest(getToken()));
     } else {
       localStorage.removeItem('proposEventToken');
       localStorage.removeItem('proposEventUserId');
       yield put(loadUserFailed(json));
+      push({
+        pathname: '/login',
+        message: 'Sesja zakończyła się. Zaloguj się ponownie!',
+      });
     }
   } catch (error) {
     localStorage.removeItem('proposEventToken');
