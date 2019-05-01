@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import {
   fetchEventRequest,
   deleteEventRequest,
@@ -24,14 +25,15 @@ export class Event extends Component {
     return targetedEvent ? true : false;
   }
   render() {
-    const { currentUserId, ownerId } = this.props;
-    if (this.props.currentEvent) {
+    const { currentUserId, ownerId, currentEvent } = this.props;
+    if (currentEvent && Object.keys(currentEvent).length !== 0) {
       return (
         <StyledSection className="section">
           <EventDescription event={this.props.currentEvent} id={this.props.match.params.id} />
           {currentUserId === ownerId ? (
             <OwnerEventForm
               onDelete={this.props.deleteEvent}
+              onModify={this.props.modifyEvent}
               eventId={this.props.match.params.id}
             />
           ) : (
@@ -62,6 +64,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchEvent: (token, id) => dispatch(fetchEventRequest(token, id)),
     deleteEvent: (token, id) => dispatch(deleteEventRequest(token, id)),
+    modifyEvent: eventId => dispatch(push(`/events/${eventId}/modify`)),
     addMember: (token, user_id, event_id) =>
       dispatch(addEventMemberRequest(token, user_id, event_id)),
     removeMember: (token, user_id, event_id) =>

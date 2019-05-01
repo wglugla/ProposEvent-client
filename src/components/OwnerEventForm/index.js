@@ -7,9 +7,13 @@ export const OwnerEventForm = props => {
     e.preventDefault();
     props.onDelete(localStorage.proposEventToken, props.eventId);
   };
+  const modifySubmit = e => {
+    e.preventDefault();
+    props.onModify(props.eventId);
+  };
   return (
     <div>
-      <StyledForm>
+      <StyledForm onSubmit={modifySubmit}>
         <button className="button is-info" type="submit">
           Edytuj wydarzenie
         </button>

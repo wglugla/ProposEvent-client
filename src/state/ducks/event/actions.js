@@ -20,6 +20,9 @@ export const REMOVE_EVENT_MEMBER_FAIL = 'REMOVE_EVENT_MEMBER_FAIL';
 export const MATCH_EVENTS_REQUEST = 'MATCH_EVENTS_REQUEST';
 export const MATCH_EVENTS_RECEIVE = 'MATCH_EVENTS_RECEIVE';
 export const MATCH_EVENTS_FAIL = 'MATCH_EVENTS_FAIL';
+export const MODIFY_EVENT_REQUEST = 'MODIFY_EVENT_REQUEST';
+export const MODIFY_EVENT_RECEIVE = 'MODIFY_EVENT_RECEIVE';
+export const MODIFY_EVENT_FAIL = 'MODIFY_EVENT_FAIL';
 
 export const createEventRequest = (eventData, token) => ({
   type: CREATE_EVENT_REQUEST,
@@ -184,6 +187,30 @@ export const matchEventsFailed = error => ({
   error,
 });
 
+export const modifyEventRequest = (token, eventData, event_id) => ({
+  type: MODIFY_EVENT_REQUEST,
+  payload: {
+    eventData,
+    event_id,
+  },
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+export const modifyEventReceive = json => ({
+  type: MODIFY_EVENT_RECEIVE,
+  payload: {
+    ...json,
+  },
+});
+
+export const modifyEventFailed = error => ({
+  type: MODIFY_EVENT_FAIL,
+  error,
+});
+
 export default {
   createEventRequest,
   createEventReceive,
@@ -204,4 +231,7 @@ export default {
   matchEventsRequest,
   matchEventsReceive,
   matchEventsFailed,
+  modifyEventRequest,
+  modifyEventReceive,
+  modifyEventFailed,
 };

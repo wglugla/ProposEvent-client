@@ -9,6 +9,7 @@ import {
   eventAddMemberDomain,
   eventRemoveMemberDomain,
   eventMatchDomain,
+  eventModifyDomain,
 } from '../domains';
 import {
   CREATE_EVENT_REQUEST,
@@ -18,6 +19,7 @@ import {
   ADD_EVENT_MEMBER_REQUEST,
   REMOVE_EVENT_MEMBER_REQUEST,
   MATCH_EVENTS_REQUEST,
+  MODIFY_EVENT_REQUEST,
 } from './actions';
 
 import {
@@ -35,6 +37,8 @@ import {
   removeEventMemberFailed,
   matchEventsReceive,
   matchEventsFailed,
+  modifyEventReceive,
+  modifyEventFailed,
 } from './actions';
 
 function* eventCreateSagaCall(action) {
@@ -193,6 +197,37 @@ function* matchEventsSagaCall(action) {
   }
 }
 
+function* modifyEventSagaCall(action) {
+  try {
+    const { headers } = action;
+    const { event_id } = action.payload;
+    let body = {};
+    if (action.payload) body = JSON.stringify(action.payload.eventData);
+    else body = null;
+    const data = yield call(fetch, eventModifyDomain(event_id), {
+      method: 'POST',
+      body,
+      headers,
+    });
+    const json = yield data.json();
+    if (json.status) {
+      yield put(modifyEventReceive(json));
+      yield put(
+        push({
+          pathname: '/dashboard',
+          message: 'Wydarzenie zmodyfikowane pomyślnie!',
+        })
+      );
+    } else {
+      console.warn(json);
+      yield put(modifyEventFailed(json));
+    }
+  } catch (error) {
+    console.error(error);
+    yield put(modifyEventFailed({ message: 'Error! :(' }));
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(CREATE_EVENT_REQUEST, eventCreateSagaCall);
   yield takeLatest(FETCH_EVENT_REQUEST, eventFetchSagaCall);
@@ -201,4 +236,5 @@ export default function* authSaga() {
   yield takeLatest(ADD_EVENT_MEMBER_REQUEST, addMemberSagaCall);
   yield takeLatest(REMOVE_EVENT_MEMBER_REQUEST, removeMemberSagaCall);
   yield takeLatest(MATCH_EVENTS_REQUEST, matchEventsSagaCall);
+  yield takeLatest(MODIFY_EVENT_REQUEST, modifyEventSagaCall);
 }
