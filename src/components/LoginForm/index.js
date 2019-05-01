@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
+import { ErrorInfo } from '../ErrorInfo';
 
 import { StyledSection, StyledContainer } from '../../shared/Container';
 import { StyledForm } from '../../shared/Form';
@@ -18,6 +19,7 @@ const SigninSchema = Yup.object().shape({
 });
 
 export const LoginForm = props => {
+  const { fail, message } = props.loginInfo;
   return (
     <StyledSection className="section">
       <StyledContainer className="container">
@@ -76,7 +78,7 @@ export const LoginForm = props => {
             </StyledForm>
           )}
         />
-        {props.failed ? <p> Błąd logowania </p> : null}
+        {fail ? <ErrorInfo message={message} /> : null}
       </StyledContainer>
     </StyledSection>
   );

@@ -14,7 +14,7 @@ class Login extends Component {
     }
   }
   render() {
-    return <LoginForm login={this.props.loginRequest} failed={this.props.failed} />;
+    return <LoginForm login={this.props.loginRequest} loginInfo={this.props.loginInfo} />;
   }
 }
 
@@ -32,8 +32,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    logged: state.auth.loginStatus.logged,
-    failed: state.auth.loginStatus.fail,
+    loginInfo: state.auth.loginStatus,
   };
 };
 
