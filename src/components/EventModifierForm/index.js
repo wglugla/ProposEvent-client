@@ -25,6 +25,9 @@ const EventSchema = Yup.object().shape({
 
 export const EventModifierForm = props => {
   const { owner_id, event_id, title, place, date, description, event_tags } = props.eventInfo;
+  if (!props.eventInfo) {
+    return <p> Wczytywanie.. </p>;
+  }
   return (
     <StyledSection className="section">
       <StyledContainer className="container">
@@ -107,7 +110,7 @@ export const EventModifierForm = props => {
               <CheckboxList />
               {status && status.msg && <div> {status.msg}</div>}
               <button className="button is-info" type="submit">
-                Utwórz wydarzenie
+                Modyfikuj wydarzenie
               </button>
             </StyledForm>
           )}
