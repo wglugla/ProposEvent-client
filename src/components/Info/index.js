@@ -18,7 +18,7 @@ export const Info = props => {
     container.removeChild(notification);
   };
   return (
-    <StyledNotification className="notification is-info">
+    <StyledNotification className="notification is-success">
       <button onClick={hideNotification} className="delete" />
       <p> {message} </p>
     </StyledNotification>

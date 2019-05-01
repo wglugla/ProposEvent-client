@@ -54,7 +54,7 @@ function* eventCreateSagaCall(action) {
       yield put(
         push({
           pathname: '/dashboard',
-          message: 'Wydarzenie utworzone pomyślnie',
+          message: 'Wydarzenie utworzone pomyślnie!',
         })
       );
     } else {
@@ -102,7 +102,12 @@ function* eventDeleteSagaCall(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(deleteEventReceive(json));
-      yield put(push('/dashboard'));
+      yield put(
+        push({
+          pathname: '/dashboard',
+          message: 'Wydarzenie usunięte pomyślnie!',
+        })
+      );
     } else {
       yield put(deleteEventFailed(json));
     }
@@ -123,7 +128,12 @@ function* addMemberSagaCall(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(addEventMemberReceive(json));
-      yield put(push('/dashboard'));
+      yield put(
+        push({
+          pathname: '/dashboard',
+          message: 'Pomyślnie dołączono do wydarzenia!',
+        })
+      );
     } else {
       yield put(addEventMemberFailed(json));
     }
@@ -144,7 +154,12 @@ function* removeMemberSagaCall(action) {
     const json = yield data.json();
     if (json.status) {
       yield put(removeEventMemberReceive(json));
-      yield put(push('/dashboard'));
+      yield put(
+        push({
+          pathname: '/dashboard',
+          message: 'Pomyślnie opuszczono wydarzenie!',
+        })
+      );
     } else {
       yield put(removeEventMemberFailed(json));
     }

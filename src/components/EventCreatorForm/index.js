@@ -5,7 +5,6 @@ import { CheckboxList } from '../CheckboxList';
 
 import { StyledSection, StyledContainer } from '../../shared/Container';
 import { StyledForm } from '../../shared/Form';
-import { StyledParagraph } from '../../shared/Paragraph';
 
 const EventSchema = Yup.object().shape({
   owner_id: Yup.number().required('Wymagane!'),
