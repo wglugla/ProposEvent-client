@@ -1,4 +1,6 @@
 import React from 'react';
+import Moment from 'react-moment';
+import { StyledMoment } from '../../shared/Moment';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,9 +21,19 @@ const EventInfo = props => {
           </div>
           <div className="card-content">
             <div className="content">
-              <p> Data: {date} </p>
-              <p> Miejsce: {place} </p>
-              {accuracyPercentage !== undefined ? <p> Zgodność: {accuracyPercentage}%</p> : null}
+              <p>
+                <Moment locale="pl" format="dddd Do MMMM YYYY, h:mm">
+                  {date}
+                </Moment>
+                <StyledMoment locale="pl" fromNow>
+                  {date}
+                </StyledMoment>
+              </p>
+
+              <p>{place} </p>
+              {accuracyPercentage !== undefined ? (
+                <p> Zgodność: {Math.round(accuracyPercentage)}%</p>
+              ) : null}
             </div>
           </div>
           <footer className="card-footer">

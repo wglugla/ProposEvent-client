@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import {
@@ -21,30 +22,50 @@ export class Event extends Component {
   }
   checkSigned() {
     const { signedEvents, currentEvent } = this.props;
-    const targetedEvent = signedEvents.find(event => event.event_id === currentEvent.event_id);
+    let targetedEvent;
+    if (signedEvents != null) {
+      targetedEvent = signedEvents.find(event => event.event_id === currentEvent.event_id);
+    } else targetedEvent = null;
     return targetedEvent ? true : false;
+  }
+  checkIfActual(date) {
+    const a = moment(new Date(date));
+    const b = moment(new Date());
+    const past = a.diff(b, 'minutes');
+    const isActual = past > 1 ? true : false;
+    return isActual;
   }
   render() {
     const { currentUserId, ownerId, currentEvent } = this.props;
     if (currentEvent && Object.keys(currentEvent).length !== 0) {
+      const isActual = this.checkIfActual(this.props.currentEvent.date);
       return (
-        <StyledSection className="section">
-          <EventDescription event={this.props.currentEvent} id={this.props.match.params.id} />
-          {currentUserId === ownerId ? (
-            <OwnerEventForm
-              onDelete={this.props.deleteEvent}
-              onModify={this.props.modifyEvent}
-              eventId={this.props.match.params.id}
-            />
-          ) : (
-            <EventForm
-              signed={this.checkSigned()}
-              addMember={this.props.addMember}
-              removeMember={this.props.removeMember}
-              userId={this.props.currentUserId}
-              eventId={this.props.currentEvent.event_id}
-            />
-          )}
+        <StyledSection className="section columns">
+          <div className="column">
+            <EventDescription event={this.props.currentEvent} id={this.props.match.params.id} />
+            {currentUserId === ownerId ? (
+              <OwnerEventForm
+                onDelete={this.props.deleteEvent}
+                onModify={this.props.modifyEvent}
+                eventId={this.props.match.params.id}
+                isActual={isActual}
+              />
+            ) : (
+              <EventForm
+                signed={this.checkSigned()}
+                addMember={this.props.addMember}
+                removeMember={this.props.removeMember}
+                userId={this.props.currentUserId}
+                eventId={this.props.currentEvent.event_id}
+                isActual={isActual}
+              />
+            )}
+          </div>
+          <div className="column">
+            <figure className="image">
+              <img src="https://via.placeholder.com/300" alt="zdjecie eventu" />
+            </figure>
+          </div>
         </StyledSection>
       );
     } else {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 import { CheckboxList } from '../CheckboxList';
+import { Form, Datepicker } from 'react-formik-ui';
 
 import { StyledSection, StyledContainer } from '../../shared/Container';
 import { StyledForm } from '../../shared/Form';
@@ -53,6 +54,21 @@ export const EventModifierForm = props => {
                 handleSubmit();
               }}
             >
+              <Form structured>
+                <Datepicker
+                  id="date"
+                  type="date"
+                  name="date"
+                  autoComplete="date"
+                  label="Naciśnij aby wybrać datę i godzinę"
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  dateFormat="yyyy-MM-dd hh:mm"
+                  timeCaption="time"
+                  minDate={new Date()}
+                />
+                {errors.date && touched.date && <div> {errors.date} </div>}
+              </Form>
               <div className="field">
                 <label className="label" htmlFor="title">
                   Tytuł wydarzenia
@@ -81,15 +97,6 @@ export const EventModifierForm = props => {
                     autoComplete="place"
                   />
                   {errors.place && touched.place && <div> {errors.place} </div>}
-                </div>
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="date">
-                  Data
-                </label>
-                <div className="control">
-                  <Field className="input" id="date" type="date" name="date" autoComplete="date" />
-                  {errors.date && touched.date && <div> {errors.date} </div>}
                 </div>
               </div>
               <div className="field">
