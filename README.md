@@ -1,5 +1,7 @@
 # ProposEvent-client - React App
 
+> This repository is archived. It means that I don't work on it anymore. I publish it to show my programming progress.
+
 This is a client for the project **ProposEvent**
 You can check server side here: [ProposEvent-server](https://github.com/wglugla/ProposEvent-server),
 
